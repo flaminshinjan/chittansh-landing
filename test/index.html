@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>chittansh.ai — ship the thing, not the deck</title>
+<meta name="description" content="AI build studio. 27 systems shipped to production. Plan Builder live below — describe your workflow, get a tailored plan in 60s." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="term" data-screen-label="Home">
+
+<!-- ============== TERMINAL TOP BAR ============== -->
+<header class="term-header">
+  <div class="term-header__inner">
+    <a href="index.html" class="term-brand">
+      <span class="term-brand__bracket">[</span><span class="term-brand__name">chittansh.ai</span><span class="term-brand__bracket">]</span>
+      <span class="term-brand__path">~/home</span>
+    </a>
+    <nav class="term-nav">
+      <a href="#demos">./demos</a>
+      <a href="#shipping-log">./shipped</a>
+      <a href="services.html">./services</a>
+      <a href="case-studies.html">./cases</a>
+      <a href="about.html">./about</a>
+    </nav>
+    <a href="#contact" class="term-cta">
+      <span class="term-cta__dot"></span>
+      ./contact <span class="arr">→</span>
+    </a>
+  </div>
+  <div class="scroll-meter" aria-hidden="true">
+    <span class="scroll-meter__num" id="scroll-meter-num">0</span><span class="scroll-meter__pct">%</span>
+    <span class="scroll-meter__bar"><span class="scroll-meter__fill" id="scroll-meter-fill"></span></span>
+  </div>
+</header>
+
+<main class="term-main">
+
+<!-- ============== STATUS BLOCK ============== -->
+<section class="term-block" data-screen-label="Status">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--status</span></div>
+
+  <div class="term-status">
+    <div class="term-status__line">
+      <span class="term-status__arrow">►</span>
+      <em class="term-status__big">ai build studio</em>
+      <span class="term-status__meta">est. 2024 &middot; gurgaon &middot; bengaluru</span>
+    </div>
+
+    <ul class="term-status__list">
+      <li><b>27</b><span>systems shipped to production</span></li>
+      <li><b>06</b><span>currently in build</span></li>
+      <li><b>02</b><span>build slots remaining for q3 2026</span></li>
+      <li><b>09</b><span>engineers · 03 partners · 0 account managers</span></li>
+    </ul>
+  </div>
+
+  <div class="term-quote">
+    <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--motto</span></div>
+    <p>&gt; we ship <em class="serif">the thing</em>, not the deck.</p>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<!-- ============== PLAN BUILDER ============== -->
+<section class="term-block" data-screen-label="Plan Builder">
+  <div class="term-prompt"><span class="dollar">$</span> ./plan_builder <span class="flag">--start</span></div>
+  <div class="term-subprompt">
+    <span class="term-status__arrow">►</span>
+    describe a workflow &middot; match against shipped demos &middot; output 8-week plan
+    <span class="term-eta">[ ~25s ]</span>
+  </div>
+
+  <section class="agent agent--term" id="agent" aria-label="Plan Builder">
+
+    <!-- Two-column body: input | result -->
+    <div class="agent__split">
+
+      <!-- INPUT COLUMN -->
+      <div class="agent__input-col">
+        <div class="agent-term__head">
+          <span class="agent-term__step">01</span>
+          <span class="agent-term__step-t">input</span>
+          <span class="agent-term__step-meta">type, talk, or send video</span>
+        </div>
+
+        <!-- Mode tabs -->
+        <div class="agent-term__tabs" role="tablist" aria-label="Input mode">
+          <button type="button" class="agent-term__tab is-active" data-mode="text" role="tab" aria-selected="true">[ text ]</button>
+          <button type="button" class="agent-term__tab" data-mode="voice" role="tab">[ voice ]</button>
+          <button type="button" class="agent-term__tab" data-mode="video" role="tab">[ video ]</button>
+        </div>
+
+        <!-- TEXT mode -->
+        <div class="agent-term__mode is-active" data-pane="text">
+          <div class="agent__chips" role="group" aria-label="Quick starts">
+            <button type="button" class="agent__chip" data-prefill="We get 4,000 inbound support calls a month for returns and exchanges on our DTC store. Want to contain 30%+ end-to-end with voice.">&gt; voice/returns</button>
+            <button type="button" class="agent__chip" data-prefill="Our advisors spend 2 hours per client writing suitability rationales. We want a copilot that drafts the memo with citations, compliance-ready.">&gt; advisor/copilot</button>
+            <button type="button" class="agent__chip" data-prefill="Internal teams need to search across our 14k regulator filings, contracts and internal wiki. Today it's grep + tribal knowledge. Want a RAG copilot they actually trust.">&gt; internal/rag</button>
+            <button type="button" class="agent__chip" data-prefill="Our claims adjusters handle motor + health FNOLs. We want an agent that triages, flags fraud signals, and gives them one screen to act on.">&gt; claims/triage</button>
+            <button type="button" class="agent__chip" data-prefill="Editorial desk wants to turn wire stories into in-house briefs at deadline pace. Voice-locked, every fact cited back to source.">&gt; editorial/drafting</button>
+          </div>
+
+          <form class="agent__form" id="agent-form">
+            <label class="visually-hidden" for="agent-input">Describe your workflow</label>
+            <div class="agent-term__input-wrap">
+              <span class="agent-term__caret">&gt;</span>
+              <textarea id="agent-input" class="agent__textarea" rows="6"
+                placeholder="industry &middot; team &middot; current pain &middot; one paragraph is enough"
+                maxlength="900"></textarea>
+            </div>
+            <div class="agent__form-foot">
+              <span class="agent__hint">⌅ to run &middot; never stored</span>
+              <button type="submit" class="agent__submit" id="agent-submit">
+                <span>[ run ↵ ]</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- VOICE mode -->
+        <div class="agent-term__mode" data-pane="voice">
+          <div class="voice-pad">
+            <button type="button" class="voice-mic" id="voice-mic" aria-label="Tap to record">
+              <span class="voice-mic__ring"></span>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+            </button>
+            <div class="voice-pad__meta">
+              <span class="voice-status" id="voice-status">tap to record &middot; ~30s</span>
+              <span class="voice-time" id="voice-time">0:00</span>
+            </div>
+            <div class="voice-bars" id="voice-bars" aria-hidden="true"></div>
+          </div>
+          <div class="voice-transcript">
+            <span class="agent-term__label">// transcript</span>
+            <div id="voice-transcript-out" class="voice-transcript__out" contenteditable="true" data-placeholder="transcript will appear here · editable before submit"></div>
+          </div>
+          <div class="agent__form-foot">
+            <span class="agent__hint" id="voice-hint">uses your browser&rsquo;s speech recognition</span>
+            <button type="button" class="agent__submit" id="voice-submit">
+              <span>[ run ↵ ]</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- VIDEO mode -->
+        <div class="agent-term__mode" data-pane="video">
+          <div class="video-pad">
+            <video id="video-preview" class="video-preview" autoplay muted playsinline></video>
+            <div class="video-overlay" id="video-overlay">
+              <span class="video-cta" id="video-cta">[ enable camera ]</span>
+              <span class="video-hint">we&rsquo;ll attach a 30-60s pitch to your inquiry</span>
+            </div>
+            <div class="video-rec" id="video-rec-indicator"><span></span>REC <em id="video-time">0:00</em></div>
+          </div>
+          <div class="video-controls">
+            <button type="button" class="video-btn" id="video-record">● record</button>
+            <button type="button" class="video-btn video-btn--ghost" id="video-stop" disabled>■ stop</button>
+            <button type="button" class="video-btn video-btn--ghost" id="video-reset" disabled>↺ reset</button>
+            <span class="video-status" id="video-status">camera off</span>
+          </div>
+          <div class="agent-term__input-wrap video-note">
+            <span class="agent-term__caret">&gt;</span>
+            <textarea id="video-note" class="agent__textarea" rows="3"
+              placeholder="optional &middot; one line of context to send with the video"
+              maxlength="400"></textarea>
+          </div>
+          <div class="agent__form-foot">
+            <span class="agent__hint">video stays local until you submit</span>
+            <button type="button" class="agent__submit" id="video-submit" disabled>
+              <span>[ run ↵ ]</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT COLUMN -->
+      <div class="agent__result-col" id="agent-result-col">
+        <div class="agent-term__head">
+          <span class="agent-term__step alt">02</span>
+          <span class="agent-term__step-t">output</span>
+          <span class="agent-term__step-meta" id="agent-state-label">sample run &middot; an example workflow plan</span>
+        </div>
+
+        <div class="agent__result" id="agent-result">
+
+          <div class="agent-term__section">
+            <span class="agent-term__label">// summary</span>
+            <p class="agent__summary" id="r-summary">Voice agent containing returns &amp; exchanges end-to-end on inbound calls, 30%+ deflection target.</p>
+          </div>
+
+          <div class="agent-term__section">
+            <span class="agent-term__label">// approach</span>
+            <p id="r-approach">Streaming voice on your existing telephony. Tool-use over your OMS so refunds and exchanges close on the call, not in a follow-up queue. Sub-1.4s latency budget end-to-end.</p>
+          </div>
+
+          <div class="agent__demo-card" id="r-demo">
+            <div class="agent__demo-head">
+              <span class="agent-term__label">// closest_demo</span>
+              <span class="agent__demo-badge">[ LIVE ]</span>
+            </div>
+            <h4 class="agent__demo-name" id="r-demo-name">echo-returns.case</h4>
+            <p class="agent__demo-why" id="r-demo-why">Same shape as your stack &mdash; sub-1.4s latency, OMS-backed actions, clean escalation when policy gets ambiguous.</p>
+          </div>
+
+          <div class="agent__phases">
+            <div class="agent__phase">
+              <span class="agent-term__label">// wk 1–3 · thesis</span>
+              <ul id="r-sprint">
+                <li>Map top 8 call reasons by volume + margin</li>
+                <li>Latency + tool-use POC on staging line</li>
+                <li>Compliance + recording review path</li>
+              </ul>
+            </div>
+            <div class="agent__phase">
+              <span class="agent-term__label">// wk 4–12 · build</span>
+              <ul id="r-build">
+                <li>Live on one number, 5% of traffic</li>
+                <li>OMS tool-use locked + tested in prod</li>
+                <li>Human handoff + transcript review baked in</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="agent__question">
+            <span class="agent-term__label">// next_call_question</span>
+            <p id="r-question">Which call reasons would make you uncomfortable letting an agent close end-to-end &mdash; and why?</p>
+          </div>
+
+          <div class="agent__cta">
+            <a href="mailto:hello@chittanshai.com?subject=Demo%20plan%20followup" class="term-cta-btn agent__book">
+              [ book a 30-min call ↵ ]
+            </a>
+            <button type="button" class="agent__restart" id="agent-restart">&larr; reset</button>
+          </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div class="agent__loading-overlay" id="agent-loading">
+          <div class="agent__loading-card">
+            <div class="agent__loading-title">&gt; drafting your plan</div>
+            <div class="agent__steps">
+              <div class="agent__step" data-step="1"><span class="agent__step-i">01</span><span class="agent__step-t">reading input</span><span class="agent__step-mark"></span></div>
+              <div class="agent__step" data-step="2"><span class="agent__step-i">02</span><span class="agent__step-t">searching demo catalogue</span><span class="agent__step-mark"></span></div>
+              <div class="agent__step" data-step="3"><span class="agent__step-i">03</span><span class="agent__step-t">composing plan</span><span class="agent__step-mark"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error overlay -->
+        <div class="agent__error-overlay" id="agent-error">
+          <p>&gt; error: model unavailable. mail us at <a href="mailto:hello@chittanshai.com">hello@chittanshai.com</a> &mdash; we&rsquo;ll draft your plan by hand.</p>
+          <button type="button" class="agent__restart" id="agent-restart-err">&larr; retry</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+<hr class="term-rule"/>
+
+<!-- ============== FEATURED DEMOS (rich previews) ============== -->
+<section id="demos" class="term-block" data-screen-label="Demos">
+  <div class="term-prompt"><span class="dollar">$</span> cat <span class="flag">./demos/featured.md</span></div>
+  <div class="term-subprompt">
+    <span class="term-status__arrow">►</span>
+    six demos with media &middot; loom or sandbox embed slots &middot; tap any tile to watch
+  </div>
+
+  <div class="demos-grid">
+
+    <!-- DEMO 01 -->
+    <article class="term-demo">
+      <header class="term-demo__head">
+        <span class="term-demo__num">01</span>
+        <span class="term-demo__name">echo-returns.case</span>
+        <span class="term-demo__dom">voice &middot; e-comm</span>
+        <span class="term-demo__badge live">[ LIVE ]</span>
+      </header>
+      <div class="term-demo__media">
+        <div class="term-demo__slot" data-slot="echo-returns">
+          <span class="mono">loom · drop in real video</span>
+        </div>
+        <button class="term-demo__play" type="button" aria-label="Watch demo">
+          <span class="tri"></span>
+        </button>
+      </div>
+      <div class="term-demo__body">
+        <div class="term-demo__row">
+          <span class="agent-term__label">// summary</span>
+          <p>Inbound voice agent handling 38% of returns &amp; exchange calls e2e. Sub-1.4s, tool-using, escalates clean on edge cases.</p>
+        </div>
+        <div class="term-demo__row">
+          <span class="agent-term__label">// stack</span>
+          <ul class="term-demo__stack">
+            <li>streaming ASR + custom TTS &middot; sub-1.4s</li>
+            <li>tool-use over order &amp; carrier APIs</li>
+            <li>recording &amp; review baked in</li>
+          </ul>
+        </div>
+        <footer class="term-demo__foot">
+          <div class="term-demo__metric"><b>38%</b><span>calls fully contained</span></div>
+          <div class="term-demo__cta">
+            <a href="#" class="term-cta-btn term-cta-btn--sm">[ watch loom ]</a>
+            <a href="#" class="term-cta-btn term-cta-btn--sm term-cta-btn--ghost">[ call demo line ]</a>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+    <!-- DEMO 02 -->
+    <article class="term-demo">
+      <header class="term-demo__head">
+        <span class="term-demo__num">02</span>
+        <span class="term-demo__name">ledger-copilot.case</span>
+        <span class="term-demo__dom">advisor &middot; wealth</span>
+        <span class="term-demo__badge live">[ LIVE ]</span>
+      </header>
+      <div class="term-demo__media">
+        <div class="term-demo__slot" data-slot="ledger"><span class="mono">screenshot · drop in cockpit shot</span></div>
+        <button class="term-demo__play" type="button" aria-label="Watch demo"><span class="tri"></span></button>
+      </div>
+      <div class="term-demo__body">
+        <div class="term-demo__row">
+          <span class="agent-term__label">// summary</span>
+          <p>Advisor cockpit that drafts suitability memos from KYC + portfolio + house view. Every line cited back to rule, position or note.</p>
+        </div>
+        <div class="term-demo__row">
+          <span class="agent-term__label">// stack</span>
+          <ul class="term-demo__stack">
+            <li>Claude 3.5 + custom suitability reasoner</li>
+            <li>RAG over 14k regulator filings</li>
+            <li>audit pack auto-rendered to PDF</li>
+          </ul>
+        </div>
+        <footer class="term-demo__foot">
+          <div class="term-demo__metric"><b>−72%</b><span>memo drafting time</span></div>
+          <div class="term-demo__cta">
+            <a href="#" class="term-cta-btn term-cta-btn--sm">[ watch loom ]</a>
+            <a href="#" class="term-cta-btn term-cta-btn--sm term-cta-btn--ghost">[ walkthrough ]</a>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+    <!-- DEMO 03 -->
+    <article class="term-demo">
+      <header class="term-demo__head">
+        <span class="term-demo__num">03</span>
+        <span class="term-demo__name">triage-os.case</span>
+        <span class="term-demo__dom">claims &middot; insurance</span>
+        <span class="term-demo__badge sandbox">[ SANDBOX ]</span>
+      </header>
+      <div class="term-demo__media">
+        <div class="term-demo__slot" data-slot="triage"><span class="mono">video · drop in console capture</span></div>
+        <button class="term-demo__play" type="button" aria-label="Watch demo"><span class="tri"></span></button>
+      </div>
+      <div class="term-demo__body">
+        <div class="term-demo__row">
+          <span class="agent-term__label">// summary</span>
+          <p>Claims triage console for motor &amp; health. Reads FNOL, photos, policy, history. Proposes a path, flags fraud, hands one screen to the adjuster.</p>
+        </div>
+        <div class="term-demo__row">
+          <span class="agent-term__label">// stack</span>
+          <ul class="term-demo__stack">
+            <li>vision (damage) + text reasoner</li>
+            <li>fraud signals from policy + history</li>
+            <li>adjuster cockpit with override review</li>
+          </ul>
+        </div>
+        <footer class="term-demo__foot">
+          <div class="term-demo__metric"><b>4.1&times;</b><span>adjuster throughput</span></div>
+          <div class="term-demo__cta">
+            <a href="#" class="term-cta-btn term-cta-btn--sm">[ open sandbox ]</a>
+            <a href="#" class="term-cta-btn term-cta-btn--sm term-cta-btn--ghost">[ watch loom ]</a>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+    <!-- DEMO 04 -->
+    <article class="term-demo">
+      <header class="term-demo__head">
+        <span class="term-demo__num">04</span>
+        <span class="term-demo__name">briefroom.case</span>
+        <span class="term-demo__dom">editorial &middot; media</span>
+        <span class="term-demo__badge live">[ LIVE ]</span>
+      </header>
+      <div class="term-demo__media">
+        <div class="term-demo__slot" data-slot="briefroom"><span class="mono">screenshot · editor cockpit</span></div>
+        <button class="term-demo__play" type="button" aria-label="Watch demo"><span class="tri"></span></button>
+      </div>
+      <div class="term-demo__body">
+        <div class="term-demo__row">
+          <span class="agent-term__label">// summary</span>
+          <p>Editorial agent turning wire stories into desk-ready briefs in house voice. Every fact cited back to source. Used in two newsrooms on deadline.</p>
+        </div>
+        <div class="term-demo__row">
+          <span class="agent-term__label">// stack</span>
+          <ul class="term-demo__stack">
+            <li>house-style score &middot; per-publication</li>
+            <li>source citation + change-log</li>
+            <li>editor cockpit &middot; keyboard-first</li>
+          </ul>
+        </div>
+        <footer class="term-demo__foot">
+          <div class="term-demo__metric"><b>11 min</b><span>median wire → brief</span></div>
+          <div class="term-demo__cta">
+            <a href="#" class="term-cta-btn term-cta-btn--sm">[ watch loom ]</a>
+            <a href="case-studies.html#case-01" class="term-cta-btn term-cta-btn--sm term-cta-btn--ghost">[ case study ]</a>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+    <!-- DEMO 05 -->
+    <article class="term-demo">
+      <header class="term-demo__head">
+        <span class="term-demo__num">05</span>
+        <span class="term-demo__name">routeline.case</span>
+        <span class="term-demo__dom">ops &middot; logistics</span>
+        <span class="term-demo__badge private">[ PRIVATE ]</span>
+      </header>
+      <div class="term-demo__media">
+        <div class="term-demo__slot" data-slot="routeline"><span class="mono">video · control room ui</span></div>
+        <button class="term-demo__play" type="button" aria-label="Watch demo"><span class="tri"></span></button>
+      </div>
+      <div class="term-demo__body">
+        <div class="term-demo__row">
+          <span class="agent-term__label">// summary</span>
+          <p>Control-room agent watching exception queues. Writes customer comms, carrier comms and the internal ticket from the same incident.</p>
+        </div>
+        <div class="term-demo__row">
+          <span class="agent-term__label">// stack</span>
+          <ul class="term-demo__stack">
+            <li>multi-channel comms &middot; tone-locked</li>
+            <li>carrier API tool-use &middot; 14 integrations</li>
+            <li>override + audit baked in</li>
+          </ul>
+        </div>
+        <footer class="term-demo__foot">
+          <div class="term-demo__metric"><b>−61%</b><span>time-on-exception</span></div>
+          <div class="term-demo__cta">
+            <a href="#" class="term-cta-btn term-cta-btn--sm">[ request access ]</a>
+            <a href="#" class="term-cta-btn term-cta-btn--sm term-cta-btn--ghost">[ watch loom ]</a>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+    <!-- DEMO 06 -->
+    <article class="term-demo">
+      <header class="term-demo__head">
+        <span class="term-demo__num">06</span>
+        <span class="term-demo__name">kyc-conv.case</span>
+        <span class="term-demo__dom">onboarding &middot; banking</span>
+        <span class="term-demo__badge live">[ LIVE ]</span>
+      </header>
+      <div class="term-demo__media">
+        <div class="term-demo__slot" data-slot="kyc"><span class="mono">screenshot · onboarding flow</span></div>
+        <button class="term-demo__play" type="button" aria-label="Watch demo"><span class="tri"></span></button>
+      </div>
+      <div class="term-demo__body">
+        <div class="term-demo__row">
+          <span class="agent-term__label">// summary</span>
+          <p>Conversational onboarding flow on top of existing KYC. 3-minute chat replaces a 22-field form. We don&rsquo;t replace the rails, we replace the form.</p>
+        </div>
+        <div class="term-demo__row">
+          <span class="agent-term__label">// stack</span>
+          <ul class="term-demo__stack">
+            <li>OCR + verification chain</li>
+            <li>drop-in for existing KYC vendor</li>
+            <li>drop-off cut from 41% → 11%</li>
+          </ul>
+        </div>
+        <footer class="term-demo__foot">
+          <div class="term-demo__metric"><b>30&times;</b><span>completion vs. form</span></div>
+          <div class="term-demo__cta">
+            <a href="#" class="term-cta-btn term-cta-btn--sm">[ try the flow ]</a>
+            <a href="#" class="term-cta-btn term-cta-btn--sm term-cta-btn--ghost">[ watch loom ]</a>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<!-- ============== SHIPPING LOG (was Demos) ============== -->
+<section id="shipping-log" class="term-block" data-screen-label="Shipping log">
+  <div class="term-prompt"><span class="dollar">$</span> ls <span class="flag">-lat</span> ./shipped/</div>
+  <div class="term-subprompt">
+    <span class="term-status__arrow">►</span>
+    everything we&rsquo;ve shipped to production &middot; 21 more under NDA
+  </div>
+
+  <div class="ship-log">
+    <div class="ship-log__head">
+      <span>date</span>
+      <span>status</span>
+      <span>domain</span>
+      <span>.case</span>
+      <span>brief</span>
+      <span></span>
+    </div>
+
+    <a href="#" class="ship-log__row">
+      <span class="ship-log__date">2026.04.12</span>
+      <span class="ship-log__badge live">[ LIVE ]</span>
+      <span class="ship-log__domain">voice</span>
+      <span class="ship-log__name">echo-returns.case</span>
+      <span class="ship-log__brief">sub-1.4s voice agent containing 38% of returns &amp; exchange calls e2e</span>
+      <span class="ship-log__arr">→</span>
+    </a>
+
+    <a href="#" class="ship-log__row">
+      <span class="ship-log__date">2026.03.08</span>
+      <span class="ship-log__badge live">[ LIVE ]</span>
+      <span class="ship-log__domain">advisor</span>
+      <span class="ship-log__name">ledger-copilot.case</span>
+      <span class="ship-log__brief">RAG cockpit drafting suitability memos with line-level citations</span>
+      <span class="ship-log__arr">→</span>
+    </a>
+
+    <a href="#" class="ship-log__row">
+      <span class="ship-log__date">2026.02.22</span>
+      <span class="ship-log__badge sandbox">[ SANDBOX ]</span>
+      <span class="ship-log__domain">claims</span>
+      <span class="ship-log__name">triage-os.case</span>
+      <span class="ship-log__brief">vision + text claims triage; fraud signals + adjuster console</span>
+      <span class="ship-log__arr">→</span>
+    </a>
+
+    <a href="#" class="ship-log__row">
+      <span class="ship-log__date">2026.01.15</span>
+      <span class="ship-log__badge live">[ LIVE ]</span>
+      <span class="ship-log__domain">media</span>
+      <span class="ship-log__name">briefroom.case</span>
+      <span class="ship-log__brief">wire-to-brief in newsroom voice, every fact cited; 11min median</span>
+      <span class="ship-log__arr">→</span>
+    </a>
+
+    <a href="#" class="ship-log__row">
+      <span class="ship-log__date">2025.12.03</span>
+      <span class="ship-log__badge private">[ PRIVATE ]</span>
+      <span class="ship-log__domain">ops</span>
+      <span class="ship-log__name">routeline.case</span>
+      <span class="ship-log__brief">ops control-room agent writing carrier + customer + ticket comms</span>
+      <span class="ship-log__arr">→</span>
+    </a>
+
+    <a href="#" class="ship-log__row">
+      <span class="ship-log__date">2025.11.21</span>
+      <span class="ship-log__badge live">[ LIVE ]</span>
+      <span class="ship-log__domain">banking</span>
+      <span class="ship-log__name">kyc-conv.case</span>
+      <span class="ship-log__brief">conversational onboarding on top of existing KYC; drop-off 41% → 11%</span>
+      <span class="ship-log__arr">→</span>
+    </a>
+
+    <div class="ship-log__row ship-log__row--more">
+      <span class="ship-log__date">…</span>
+      <span class="ship-log__badge nda">[ NDA ]</span>
+      <span class="ship-log__domain">multi</span>
+      <span class="ship-log__name">21 more shipped</span>
+      <span class="ship-log__brief">review-monitoring, internal-search copilots, eval harnesses, model routers</span>
+      <span class="ship-log__arr">·</span>
+    </div>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<!-- ============== PROCESS / PIPELINE ============== -->
+<section class="term-block" data-screen-label="Process">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--process</span></div>
+
+  <div class="term-process">
+    <div class="term-process__row">
+      <span class="term-process__n">[01]</span>
+      <span class="term-process__name">thesis sprint</span>
+      <span class="term-process__time">3 wks</span>
+      <span class="term-process__body">engineer + strategist embed. one written thesis, three sequenced bets, kill-criteria. a yes/no on whether AI even belongs here.</span>
+    </div>
+    <div class="term-process__row">
+      <span class="term-process__n">[02]</span>
+      <span class="term-process__name">build &amp; ship</span>
+      <span class="term-process__time">8&ndash;12 wks</span>
+      <span class="term-process__body">smallest workflow that matters. shipped to a real surface, with eval harness, audit trail, and on-call rota live before launch.</span>
+    </div>
+    <div class="term-process__row">
+      <span class="term-process__n">[03]</span>
+      <span class="term-process__name">operate &amp; hand off</span>
+      <span class="term-process__time">ongoing</span>
+      <span class="term-process__body">we stay until your team can break it and fix it without us. runbooks, dashboards, model registry &mdash; and a quarterly review.</span>
+    </div>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<!-- ============== REVIEWS ============== -->
+<section class="term-block" data-screen-label="Reviews">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--reviews</span></div>
+
+  <div class="term-reviews">
+    <article class="term-review">
+      <div class="term-review__by">
+        <span class="term-review__handle">[rohit_v]</span>
+        <span class="term-review__role">head of customer ops &middot; e-comm</span>
+      </div>
+      <p class="term-review__q"><em class="serif">&ldquo;</em>they named the owner on call one, drew the architecture on call two, and shipped to my desk on call eight. the third call was a status review.<em class="serif">&rdquo;</em></p>
+    </article>
+
+    <article class="term-review">
+      <div class="term-review__by">
+        <span class="term-review__handle">[anushka_s]</span>
+        <span class="term-review__role">cdo &middot; wealth platform</span>
+      </div>
+      <p class="term-review__q"><em class="serif">&ldquo;</em>three vendors came with a deck and an mvp. chittansh came with an architecture and a list of kill-criteria. we knew which one would still be running in twelve months.<em class="serif">&rdquo;</em></p>
+    </article>
+
+    <article class="term-review">
+      <div class="term-review__by">
+        <span class="term-review__handle">[priya_m]</span>
+        <span class="term-review__role">cto &middot; publishing group</span>
+      </div>
+      <p class="term-review__q"><em class="serif">&ldquo;</em>half the engagement was them refusing to build what we asked for. the other half was the only ai initiative on our roadmap that survived the year.<em class="serif">&rdquo;</em></p>
+    </article>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<!-- ============== CONTACT ============== -->
+<section id="contact" class="term-block" data-screen-label="Contact">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--contact</span></div>
+
+  <div class="term-contact">
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; email</span>
+      <a href="mailto:hello@chittanshai.com" class="term-contact__v">hello@chittanshai.com</a>
+      <span class="term-contact__meta">reply within 6h, weekdays</span>
+    </div>
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; call</span>
+      <a href="#" class="term-contact__v">calendly /chittansh-intro</a>
+      <span class="term-contact__meta">30 mins, no decks</span>
+    </div>
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; office</span>
+      <span class="term-contact__v">gurgaon &middot; bengaluru</span>
+      <span class="term-contact__meta">by appointment</span>
+    </div>
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; careers</span>
+      <a href="mailto:careers@chittanshai.com" class="term-contact__v">careers@chittanshai.com</a>
+      <span class="term-contact__meta">1-in-50 acceptance</span>
+    </div>
+  </div>
+
+  <div class="term-cta-row">
+    <a href="mailto:hello@chittanshai.com" class="term-cta-btn">[ send a workflow ↵ ]</a>
+    <a href="#agent" class="term-cta-btn term-cta-btn--ghost">[ open plan_builder ]</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============== FOOTER ============== -->
+<footer class="term-footer">
+  <div class="term-footer__inner">
+    <span>chittansh.ai/v2.0</span>
+    <span>&copy; 2026 chittansh ai solutions pvt ltd</span>
+    <span>ship the thing, not the deck</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const here = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.term-nav a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href && href.split('#')[0] === here) a.classList.add('is-active');
+    });
+  })();
+
+  // Scroll progress meter
+  (function(){
+    const num  = document.getElementById('scroll-meter-num');
+    const fill = document.getElementById('scroll-meter-fill');
+    if (!num || !fill) return;
+    let raf = 0;
+    const update = () => {
+      const max = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+      const pct = Math.min(100, Math.max(0, Math.round((window.scrollY / max) * 100)));
+      num.textContent = pct;
+      fill.style.transform = 'scaleX(' + (pct / 100) + ')';
+      raf = 0;
+    };
+    update();
+    window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener('resize', () => { if (!raf) raf = requestAnimationFrame(update); });
+  })();
+
+  // Animate the status numbers (e.g. 27, 06, 02, 09)
+  (function(){
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    document.querySelectorAll('.term-status__list b').forEach(b => {
+      const target = parseInt(b.textContent, 10); if (isNaN(target)) return;
+      const pad = b.textContent.length;
+      const fmt = n => String(Math.round(n)).padStart(pad, '0');
+      b.textContent = fmt(0);
+      const io = new IntersectionObserver(([en]) => {
+        if (en.isIntersecting) {
+          const start = performance.now(); const dur = 1200;
+          const tick = (t) => {
+            const p = Math.min(1, (t - start) / dur);
+            b.textContent = fmt(target * ease(p));
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick); io.unobserve(en.target);
+        }
+      }, { threshold: 0.4 });
+      io.observe(b);
+    });
+  })();
+
+  // ============ PLAN BUILDER AGENT ============
+  (function(){
+    const agent      = document.getElementById('agent');
+    if (!agent) return;
+    const form       = document.getElementById('agent-form');
+    const input      = document.getElementById('agent-input');
+    const chips      = agent.querySelectorAll('.agent__chip');
+    const loading    = document.getElementById('agent-loading');
+    const errorPane  = document.getElementById('agent-error');
+    const result     = document.getElementById('agent-result');
+    const stateLabel = document.getElementById('agent-state-label');
+    const restarts   = agent.querySelectorAll('#agent-restart, #agent-restart-err');
+    const steps      = agent.querySelectorAll('.agent__step');
+
+    const sampleSnapshot = {
+      summary:  document.getElementById('r-summary').textContent,
+      approach: document.getElementById('r-approach').textContent,
+      demoName: document.getElementById('r-demo-name').textContent,
+      demoWhy:  document.getElementById('r-demo-why').textContent,
+      sprint:   [...document.getElementById('r-sprint').querySelectorAll('li')].map(l => l.textContent),
+      build:    [...document.getElementById('r-build').querySelectorAll('li')].map(l => l.textContent),
+      question: document.getElementById('r-question').textContent,
+      label:    stateLabel.textContent
+    };
+
+    const showLoading = (on) => loading.classList.toggle('is-on', on);
+    const showError   = (on) => errorPane.classList.toggle('is-on', on);
+
+    chips.forEach(c => c.addEventListener('click', () => { input.value = c.dataset.prefill; input.focus(); }));
+
+    restarts.forEach(b => b.addEventListener('click', () => {
+      showLoading(false); showError(false);
+      input.value = '';
+      fillResult(sampleSnapshot, true);
+      input.focus();
+    }));
+
+    // 3-step loading
+    let stepTimer = 0;
+    const startSteps = () => {
+      const arr = [...steps];
+      arr.forEach(s => s.classList.remove('is-active','is-done'));
+      let i = 0;
+      const tick = () => {
+        arr.forEach((s, idx) => {
+          s.classList.toggle('is-active', idx === i);
+          s.classList.toggle('is-done',   idx <  i);
+        });
+        i += 1;
+        if (i > arr.length) {
+          arr.forEach(s => { s.classList.remove('is-active'); s.classList.add('is-done'); });
+          arr[arr.length - 1].classList.remove('is-done');
+          arr[arr.length - 1].classList.add('is-active');
+          clearInterval(stepTimer); stepTimer = 0;
+        }
+      };
+      tick();
+      stepTimer = setInterval(tick, 1200);
+    };
+    const stopSteps = () => { if (stepTimer) clearInterval(stepTimer); stepTimer = 0; };
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    });
+
+    function fillResult(data, isSample) {
+      document.getElementById('r-summary').textContent   = data.summary  || '';
+      document.getElementById('r-approach').textContent  = data.approach || '';
+      document.getElementById('r-demo-name').textContent = data.demoName || data.demo?.name || '';
+      document.getElementById('r-demo-why').textContent  = data.demoWhy  || data.demo?.why  || '';
+      document.getElementById('r-question').textContent  = data.question || '';
+      const fillList = (id, arr) => {
+        const ul = document.getElementById(id); ul.innerHTML = '';
+        (arr || []).forEach(item => { const li = document.createElement('li'); li.textContent = item; ul.appendChild(li); });
+      };
+      fillList('r-sprint', data.sprint);
+      fillList('r-build',  data.build);
+      stateLabel.textContent = isSample ? 'sample run · an example workflow plan' : 'your run · drafted in the last 30 seconds';
+      result.classList.remove('is-fresh'); void result.offsetWidth; result.classList.add('is-fresh');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userText = (input.value || '').trim();
+      runAgent(userText, input);
+    });
+
+    // === Common runner so voice + video can submit too ===
+    async function runAgent(userText, sourceField) {
+      if (!userText || userText.length < 12) {
+        if (sourceField && sourceField.classList) {
+          sourceField.classList.add('shake');
+          setTimeout(() => sourceField.classList.remove('shake'), 600);
+          if (sourceField.focus) sourceField.focus();
+        }
+        return;
+      }
+
+      showError(false); showLoading(true); startSteps();
+
+      const sys = `You are the Chittansh AI Plan Builder. Chittansh AI is an AI build studio that ships production AI systems (agents, voice, RAG, internal copilots) for ops & product teams.
+
+Voice: confident, direct, punchy, opinionated. No hedging. No "leverage", "synergy", "innovative". Plain English.
+
+Our demo library — match the user's workflow to the SINGLE best fit (use the .case-style name):
+- "ledger-copilot.case" — advisor cockpit, drafts suitability memos with citations. Use for: wealth, advisory, regulated drafting.
+- "echo-returns.case" — inbound voice agent, sub-1.4s, tool-using. Use for: voice, contact center, returns/exchanges/support calls.
+- "triage-os.case" — vision+text claims triage with fraud signals. Use for: insurance, FNOL, adjuster workflows.
+- "briefroom.case" — editorial agent, wire-to-brief, house-style scored. Use for: media, newsroom, editorial workflows.
+- "routeline.case" — ops control-room agent, writes customer + carrier + ticket comms. Use for: logistics, ops exceptions.
+- "kyc-conv.case" — chat-style onboarding flow on top of existing KYC. Use for: banking, onboarding, form-replacement.
+
+Respond with a JSON object ONLY (no prose, no fences):
+
+{
+  "summary": "Single sentence rephrase. Sharp. <= 24 words.",
+  "approach": "How we'd approach it. 1-2 sentences. Name a real architecture decision. <= 50 words.",
+  "demo": { "name": "EXACT name from list above with the .case suffix", "why": "Why this is the closest match. <= 28 words." },
+  "sprint": ["3-week sprint output #1 — 6-10 words", "output #2", "output #3"],
+  "build": ["8-week build output #1 — 6-10 words", "output #2", "output #3"],
+  "question": "The single sharpest question we'd ask on the intro call. <= 24 words."
+}
+
+Output JSON only.`;
+
+      let parsed = null;
+      try {
+        const out = await window.claude.complete({
+          messages: [{ role: 'user', content: sys + '\n\nUSER WORKFLOW:\n"""' + userText + '"""\n\nReturn JSON only.' }]
+        });
+        const cleaned = (out || '').replace(/^```(?:json)?/i, '').replace(/```\s*$/,'').trim();
+        const m = cleaned.match(/\{[\s\S]*\}/);
+        parsed = JSON.parse(m ? m[0] : cleaned);
+      } catch (err) { console.error('agent error', err); stopSteps(); showLoading(false); showError(true); return; }
+
+      if (!parsed || !parsed.summary || !parsed.demo) { stopSteps(); showLoading(false); showError(true); return; }
+
+      await new Promise(r => setTimeout(r, 700));
+      stopSteps(); showLoading(false);
+      fillResult(parsed, false);
+    }
+
+    // ============ INPUT MODE TABS ============
+    const tabs = agent.querySelectorAll('.agent-term__tab');
+    const modes = agent.querySelectorAll('.agent-term__mode');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => { x.classList.remove('is-active'); x.setAttribute('aria-selected','false'); });
+      t.classList.add('is-active'); t.setAttribute('aria-selected','true');
+      const target = t.dataset.mode;
+      modes.forEach(m => m.classList.toggle('is-active', m.dataset.pane === target));
+    }));
+
+    // ============ VOICE MODE ============
+    (function setupVoice(){
+      const mic       = document.getElementById('voice-mic');
+      const statusEl  = document.getElementById('voice-status');
+      const timeEl    = document.getElementById('voice-time');
+      const barsWrap  = document.getElementById('voice-bars');
+      const trOut     = document.getElementById('voice-transcript-out');
+      const submitBtn = document.getElementById('voice-submit');
+      const hintEl    = document.getElementById('voice-hint');
+      if (!mic) return;
+
+      // Build bar visualizer (16 bars)
+      for (let i = 0; i < 16; i++) { const s = document.createElement('span'); barsWrap.appendChild(s); }
+      const bars = barsWrap.querySelectorAll('span');
+
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        hintEl.textContent = 'speech recognition not supported here · type instead';
+        mic.disabled = true; mic.classList.add('is-disabled');
+        return;
+      }
+
+      let recog = null, recording = false, finalText = '', interim = '';
+      let startedAt = 0, timer = 0, audioCtx = null, analyser = null, rafId = 0, mediaStream = null;
+
+      const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2,'0')}`;
+      const renderText = () => {
+        trOut.textContent = (finalText + (interim ? ' ' + interim : '')).trim();
+      };
+      const stopVisualizer = () => {
+        cancelAnimationFrame(rafId); rafId = 0;
+        bars.forEach(b => b.style.transform = 'scaleY(0.15)');
+        if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+        if (audioCtx) { audioCtx.close().catch(()=>{}); audioCtx = null; analyser = null; }
+      };
+      const startVisualizer = async () => {
+        try {
+          mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const src = audioCtx.createMediaStreamSource(mediaStream);
+          analyser = audioCtx.createAnalyser(); analyser.fftSize = 64;
+          src.connect(analyser);
+          const data = new Uint8Array(analyser.frequencyBinCount);
+          const loop = () => {
+            analyser.getByteFrequencyData(data);
+            bars.forEach((b, i) => {
+              const v = data[i] / 255;
+              b.style.transform = `scaleY(${Math.max(0.15, v)})`;
+            });
+            rafId = requestAnimationFrame(loop);
+          };
+          loop();
+        } catch (e) { /* ignore — visualizer optional */ }
+      };
+
+      const start = async () => {
+        finalText = ''; interim = ''; renderText();
+        recog = new SR(); recog.continuous = true; recog.interimResults = true; recog.lang = 'en-US';
+        recog.onresult = (ev) => {
+          interim = '';
+          for (let i = ev.resultIndex; i < ev.results.length; i++) {
+            const r = ev.results[i];
+            if (r.isFinal) finalText += (finalText ? ' ' : '') + r[0].transcript.trim();
+            else interim += r[0].transcript;
+          }
+          renderText();
+        };
+        recog.onerror = (e) => { statusEl.textContent = '> error: ' + (e.error || 'mic'); stop(); };
+        recog.onend = () => { if (recording) { try { recog.start(); } catch(_){} } };
+        try { recog.start(); } catch(_){}
+
+        recording = true;
+        mic.classList.add('is-on');
+        statusEl.textContent = '> listening · tap to stop';
+        startedAt = performance.now();
+        timer = setInterval(() => { timeEl.textContent = fmt((performance.now() - startedAt) / 1000); }, 250);
+        startVisualizer();
+      };
+
+      const stop = () => {
+        recording = false;
+        if (recog) { try { recog.stop(); } catch(_){} recog = null; }
+        clearInterval(timer); timer = 0;
+        mic.classList.remove('is-on');
+        statusEl.textContent = finalText ? '> stopped · review or run' : 'tap to record · ~30s';
+        stopVisualizer();
+      };
+
+      mic.addEventListener('click', () => recording ? stop() : start());
+      submitBtn.addEventListener('click', () => {
+        const text = (trOut.textContent || '').trim();
+        runAgent(text, trOut);
+      });
+    })();
+
+    // ============ VIDEO MODE ============
+    (function setupVideo(){
+      const preview     = document.getElementById('video-preview');
+      const overlay     = document.getElementById('video-overlay');
+      const ctaBtn      = document.getElementById('video-cta');
+      const recBtn      = document.getElementById('video-record');
+      const stopBtn     = document.getElementById('video-stop');
+      const resetBtn    = document.getElementById('video-reset');
+      const statusEl    = document.getElementById('video-status');
+      const recInd      = document.getElementById('video-rec-indicator');
+      const timeEl      = document.getElementById('video-time');
+      const submitBtn   = document.getElementById('video-submit');
+      const noteEl      = document.getElementById('video-note');
+      if (!preview) return;
+
+      let stream = null, mr = null, chunks = [], blob = null, startedAt = 0, timer = 0;
+
+      const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2,'0')}`;
+      const setStatus = (t) => statusEl.textContent = t;
+      const setRecBadge = (on) => recInd.classList.toggle('is-on', on);
+
+      async function enable() {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280 }, audio: true });
+          preview.srcObject = stream;
+          overlay.classList.add('is-hidden');
+          setStatus('> camera on · tap record');
+          recBtn.disabled = false;
+        } catch (e) {
+          setStatus('> permission denied');
+        }
+      }
+
+      function start() {
+        if (!stream) return;
+        chunks = [];
+        try {
+          mr = new MediaRecorder(stream, { mimeType: 'video/webm' });
+        } catch (e) { mr = new MediaRecorder(stream); }
+        mr.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) chunks.push(ev.data); };
+        mr.onstop = () => {
+          blob = new Blob(chunks, { type: 'video/webm' });
+          setStatus(`> recorded · ${fmt((performance.now() - startedAt) / 1000)} · attached`);
+          stopBtn.disabled = true;
+          recBtn.disabled = false; recBtn.textContent = '● re-record';
+          resetBtn.disabled = false;
+          submitBtn.disabled = false;
+          setRecBadge(false);
+          // show playback
+          preview.srcObject = null;
+          preview.src = URL.createObjectURL(blob);
+          preview.controls = true;
+          preview.muted = false;
+          preview.play().catch(()=>{});
+        };
+        mr.start(200);
+        startedAt = performance.now();
+        timer = setInterval(() => { timeEl.textContent = fmt((performance.now() - startedAt) / 1000); }, 250);
+        setStatus('> recording');
+        setRecBadge(true);
+        recBtn.disabled = true;
+        stopBtn.disabled = false;
+      }
+
+      function stop() {
+        if (mr && mr.state !== 'inactive') mr.stop();
+        clearInterval(timer); timer = 0;
+      }
+
+      function reset() {
+        if (blob) { try { URL.revokeObjectURL(preview.src); } catch(_){} }
+        blob = null; chunks = [];
+        preview.controls = false;
+        preview.srcObject = stream;
+        preview.muted = true; preview.play().catch(()=>{});
+        timeEl.textContent = '0:00';
+        recBtn.textContent = '● record';
+        recBtn.disabled = !stream;
+        stopBtn.disabled = true;
+        resetBtn.disabled = true;
+        submitBtn.disabled = true;
+        setStatus(stream ? '> camera on · tap record' : 'camera off');
+      }
+
+      ctaBtn.addEventListener('click', enable);
+      recBtn.addEventListener('click', () => { if (blob) reset(); start(); });
+      stopBtn.addEventListener('click', stop);
+      resetBtn.addEventListener('click', reset);
+
+      submitBtn.addEventListener('click', () => {
+        const note = (noteEl.value || '').trim();
+        const text = note
+          ? `[Video pitch attached · ${fmt((performance.now() - startedAt) / 1000)} long.] ${note}`
+          : `[Video pitch attached. Please review on the call and propose a plan based on what you see and hear.] User did not attach a text note.`;
+        runAgent(text, noteEl);
+      });
+    })();
+  })();
+</script>
+</body>
+</html>

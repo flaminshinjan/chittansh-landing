@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/shinjan/Desktop/chittansh-landing/agent/src/agents /Users/shinjan/Desktop/chittansh-landing/backend/src /Users/shinjan/Desktop/chittansh-landing/frontend/app/about /Users/shinjan/Desktop/chittansh-landing/frontend/app/services /Users/shinjan/Desktop/chittansh-landing/frontend/app/case-studies /Users/shinjan/Desktop/chittansh-landing/frontend/app/components /Users/shinjan/Desktop/chittansh-landing/frontend/public && echo \"ok\")",
+      "Bash(bun --version)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(npx next *)",
+      "Read(//Users/shinjan/**)",
+      "Bash(zsh -lc 'echo \"from shell: ${ANTHROPIC_API_KEY:0:10}...\"')",
+      "Bash(curl -fsSL https://bun.sh/install)",
+      "Bash(bash)",
+      "Bash(~/.bun/bin/bun --version)",
+      "Bash(/Users/shinjan/.bun/bin/bun run *)",
+      "Bash(/Users/shinjan/.bun/bin/bun --hot run src/index.ts)",
+      "Bash(curl -sf -o /tmp/home2.html -w \"status=%{http_code} bytes=%{size_download}\\\\n\" http://localhost:3000/)"
+    ],
+    "additionalDirectories": [
+      "/Users/shinjan/Desktop/chittansh-landing/agent/src"
+    ]
+  }
+}

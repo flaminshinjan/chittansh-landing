@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>chittansh.ai/services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="term" data-screen-label="Services">
+
+<header class="term-header">
+  <div class="term-header__inner">
+    <a href="index.html" class="term-brand">
+      <span class="term-brand__bracket">[</span><span class="term-brand__name">chittansh.ai</span><span class="term-brand__bracket">]</span>
+      <span class="term-brand__path">~/services</span>
+    </a>
+    <nav class="term-nav">
+      <a href="index.html#shipping-log">./shipped</a>
+      <a href="services.html" class="is-active">./services</a>
+      <a href="case-studies.html">./cases</a>
+      <a href="about.html">./about</a>
+    </nav>
+    <button type="button" class="term-menu__btn" id="term-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#contact" class="term-cta">
+      <span class="term-cta__dot"></span>
+      ./contact <span class="arr">→</span>
+    </a>
+  </div>
+  <div class="scroll-meter" aria-hidden="true">
+    <span class="scroll-meter__num" id="scroll-meter-num">0</span><span class="scroll-meter__pct">%</span>
+    <span class="scroll-meter__bar"><span class="scroll-meter__fill" id="scroll-meter-fill"></span></span>
+  </div>
+</header>
+
+<main class="term-main">
+
+<section class="term-block">
+  <div class="term-prompt"><span class="dollar">$</span> ls <span class="flag">./surfaces/</span></div>
+  <div class="term-subprompt"><span class="term-status__arrow">►</span> four production surfaces we ship · all plug into a workflow that pays bills</div>
+
+  <div class="ship-log">
+    <div class="ship-log__head ship-log__head--svc">
+      <span>id</span>
+      <span>surface</span>
+      <span>stack</span>
+      <span>best for</span>
+      <span>demo</span>
+    </div>
+    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
+      <span class="ship-log__date">01</span>
+      <span class="ship-log__name">voice agents</span>
+      <span class="ship-log__domain">SIP · WebRTC · TTS</span>
+      <span class="ship-log__brief">sub-1.4s latency, tool-using, recording &amp; review. returns, collections, triage, advisor support.</span>
+      <span class="ship-log__arr">echo-returns →</span>
+    </a>
+    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
+      <span class="ship-log__date">02</span>
+      <span class="ship-log__name">multi-tool agents</span>
+      <span class="ship-log__domain">LangGraph · MCP · Temporal</span>
+      <span class="ship-log__brief">live inside your CRM, ticketing, editor, back-office. tool-use, audit trail, override review.</span>
+      <span class="ship-log__arr">triage-os →</span>
+    </a>
+    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
+      <span class="ship-log__date">03</span>
+      <span class="ship-log__name">rag &amp; search</span>
+      <span class="ship-log__domain">pgvector · Qdrant · BM25</span>
+      <span class="ship-log__brief">permissioned, row-level access, citation-locked. regulator filings, wikis, contracts.</span>
+      <span class="ship-log__arr">ledger-copilot →</span>
+    </a>
+    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
+      <span class="ship-log__date">04</span>
+      <span class="ship-log__name">internal copilots</span>
+      <span class="ship-log__domain">Next · React · server actions</span>
+      <span class="ship-log__brief">editor cockpits, advisor copilots, ops control rooms. keyboard-first, override-aware.</span>
+      <span class="ship-log__arr">briefroom →</span>
+    </a>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<section class="term-block">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--engagements</span></div>
+  <div class="term-subprompt"><span class="term-status__arrow">►</span> three engagement modes · pick the smallest one that ships something</div>
+
+  <div class="term-process">
+    <div class="term-process__row">
+      <span class="term-process__n">[E·01]</span>
+      <span class="term-process__name">thesis sprint</span>
+      <span class="term-process__time">2&ndash;3 wks · fixed</span>
+      <span class="term-process__body">an engineer + strategist embed. one written thesis, three sequenced bets, kill-criteria. a yes/no on whether AI even belongs.</span>
+    </div>
+    <div class="term-process__row">
+      <span class="term-process__n">[E·02]</span>
+      <span class="term-process__name">production build</span>
+      <span class="term-process__time">8&ndash;12 wks · outcome</span>
+      <span class="term-process__body">one workflow, end-to-end, into a real surface. reference architecture + agents + evaluation. on-call hand-off to your team.</span>
+    </div>
+    <div class="term-process__row">
+      <span class="term-process__n">[E·03]</span>
+      <span class="term-process__name">operating partner</span>
+      <span class="term-process__time">6&ndash;24 mo · retained</span>
+      <span class="term-process__body">shared roadmap across surfaces. quarterly value review against the thesis. on-call coverage, change control, talent uplift.</span>
+    </div>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<section class="term-block">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--match-my-workflow</span></div>
+  <div class="term-subprompt"><span class="term-status__arrow">►</span> describe your workflow on the home page · we&rsquo;ll match a surface in 60 seconds</div>
+  <div class="term-cta-row">
+    <a href="index.html#agent" class="term-cta-btn">[ open plan_builder ↵ ]</a>
+    <a href="mailto:hello@chittanshai.com" class="term-cta-btn term-cta-btn--ghost">[ email instead ]</a>
+  </div>
+</section>
+
+<hr class="term-rule"/>
+
+<section id="contact" class="term-block">
+  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--contact</span></div>
+  <div class="term-contact">
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; email</span>
+      <a href="mailto:hello@chittanshai.com" class="term-contact__v">hello@chittanshai.com</a>
+      <span class="term-contact__meta">reply within 6h, weekdays</span>
+    </div>
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; call</span>
+      <a href="#" class="term-contact__v">calendly /chittansh-intro</a>
+      <span class="term-contact__meta">30 mins, no decks</span>
+    </div>
+    <div class="term-contact__row">
+      <span class="term-contact__k">&gt; office</span>
+      <span class="term-contact__v">gurgaon &middot; bengaluru</span>
+      <span class="term-contact__meta">by appointment</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="term-footer">
+  <div class="term-footer__inner">
+    <span>chittansh.ai/v2.0</span>
+    <span>&copy; 2026 chittansh ai solutions pvt ltd</span>
+    <span>ship the thing, not the deck</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const num=document.getElementById('scroll-meter-num'),fill=document.getElementById('scroll-meter-fill');
+    if(!num||!fill)return; let raf=0;
+    const update=()=>{const max=(document.documentElement.scrollHeight-window.innerHeight)||1;const p=Math.min(100,Math.max(0,Math.round((window.scrollY/max)*100)));num.textContent=p;fill.style.transform='scaleX('+(p/100)+')';raf=0;};
+    update();window.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
+    window.addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(update);});
+  })();
+
+  // term-menu drawer toggle (mobile)
+  (function(){
+    const header = document.querySelector('.term-header');
+    const btn    = document.getElementById('term-menu-btn');
+    if (!header || !btn) return;
+    btn.addEventListener('click', () => {
+      const open = header.classList.toggle('is-menu-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // close drawer on link click
+    document.querySelectorAll('.term-nav a').forEach(a => {
+      a.addEventListener('click', () => { header.classList.remove('is-menu-open'); btn.setAttribute('aria-expanded','false'); });
+    });
+  })();
+</script>
+</body>
+</html>
