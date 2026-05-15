@@ -3521,3 +3521,266 @@ body.term .reveal { opacity: 1; transform: none; transition: none; }
 .term-demo__metric span { font-family: var(--mono); font-size: 10.5px; color: var(--ink-mute); letter-spacing: .04em; }
 .term-demo__cta { display: flex; flex-wrap: wrap; gap: 6px; }
 .term-cta-btn--sm { font-size: 11.5px; padding: 6px 10px; }
+
+
+/* =====================================================================
+   MOBILE COMPACT — < 880px
+   ===================================================================== */
+
+/* Mobile menu button (hamburger) */
+.term-menu__btn {
+  display: none;
+  width: 36px; height: 36px;
+  background: transparent;
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+}
+.term-menu__btn span {
+  position: absolute; left: 8px; right: 8px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform .25s ease, opacity .25s ease, top .25s ease;
+}
+.term-menu__btn span:nth-child(1) { top: 11px; }
+.term-menu__btn span:nth-child(2) { top: 17px; }
+.term-menu__btn span:nth-child(3) { top: 23px; }
+.term-header.is-menu-open .term-menu__btn span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.term-header.is-menu-open .term-menu__btn span:nth-child(2) { opacity: 0; }
+.term-header.is-menu-open .term-menu__btn span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+@media (max-width: 880px) {
+  /* Header collapses */
+  .term-header__inner {
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    height: 56px;
+    padding: 0 16px;
+  }
+  .term-menu__btn { display: block; }
+  .term-brand__path { display: none; }
+
+  /* Nav becomes a drawer */
+  .term-nav {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    background: var(--bg);
+    border-bottom: 1px solid var(--hairline);
+    padding: 14px 16px 16px;
+    gap: 4px;
+  }
+  .term-header.is-menu-open .term-nav { display: flex; }
+  .term-nav a {
+    padding: 10px 4px;
+    font-size: 14px;
+    border-bottom: 1px dashed var(--hairline);
+  }
+  .term-nav a:last-child { border-bottom: 0; }
+
+  /* CTA shrinks */
+  .term-cta { font-size: 11px; padding: 6px 10px; gap: 6px; }
+  .term-cta .arr { display: none; }
+
+  /* Main spacing tightens */
+  .term-main {
+    padding: 18px 16px 28px;
+    gap: 24px;
+  }
+
+  /* Prompts */
+  .term-prompt { font-size: 13px; }
+  .term-subprompt { font-size: 11.5px; padding-left: 18px; }
+
+  /* Status block */
+  .term-status { padding: 16px 16px 18px; gap: 16px; }
+  .term-status__line { gap: 10px; }
+  .term-status__big { font-size: 32px; line-height: .95; }
+  .term-status__meta { font-size: 11px; }
+  .term-status__list li { padding-right: 0; gap: 8px; }
+  .term-status__list b { font-size: 28px; }
+  .term-status__list span { font-size: 10.5px; }
+
+  /* Motto */
+  .term-quote p { font-size: 19px; padding-left: 18px; }
+}
+
+@media (max-width: 600px) {
+  /* Header even tighter */
+  .term-header__inner { padding: 0 12px; height: 52px; }
+  .term-brand { font-size: 12px; }
+
+  .term-main { padding: 14px 12px 24px; gap: 20px; }
+  .term-prompt { font-size: 12.5px; }
+  .term-subprompt { font-size: 11px; padding-left: 16px; }
+
+  /* Status */
+  .term-status { padding: 14px; }
+  .term-status__big { font-size: 28px; }
+
+  /* Agent — tighter padding */
+  .agent--term .agent__input-col,
+  .agent--term .agent__result-col { padding: 16px 14px; }
+  .agent--term .agent__split { min-height: 0; }
+  .agent-term__head { font-size: 11.5px; flex-wrap: wrap; gap: 8px; padding-bottom: 10px; }
+  .agent-term__step-meta { width: 100%; margin-left: 0; }
+
+  /* Agent tabs */
+  .agent-term__tab { font-size: 11px; padding: 5px 9px; }
+  .agent-term__tabs { gap: 4px; }
+
+  /* Chips smaller */
+  .agent--term .agent__chip { font-size: 11px; padding: 5px 9px; }
+  .agent--term .agent__chips { gap: 5px; }
+
+  /* Input */
+  .agent--term .agent__textarea { font-size: 13px; }
+  .agent-term__input-wrap { padding: 10px 10px; }
+
+  /* Voice + video pads */
+  .voice-pad { padding: 14px; gap: 12px; }
+  .voice-mic { width: 52px; height: 52px; }
+  .voice-bars { height: 22px; gap: 2px; }
+  .voice-transcript__out { min-height: 80px; font-size: 12.5px; padding: 10px; }
+
+  .video-controls { gap: 4px; }
+  .video-btn { font-size: 11.5px; padding: 6px 10px; }
+  .video-status { font-size: 11px; flex: 1; min-width: 0; }
+
+  /* Result column */
+  .agent--term .agent__result { gap: 12px; padding-top: 12px; }
+  .agent--term .agent__rsection p, .agent-term__section p { font-size: 15.5px; }
+  .agent--term .agent__demo-name { font-size: 16px; }
+  .agent--term .agent__phases { gap: 8px; }
+  .agent--term .agent__phase { padding: 10px 12px; }
+  .agent--term .agent__cta { flex-direction: column; align-items: stretch; gap: 8px; }
+  .agent--term .agent__book { text-align: center; }
+  .agent--term .agent__restart { text-align: center; }
+
+  /* Demos grid */
+  .term-demo { border-radius: 5px; }
+  .term-demo__head { grid-template-columns: auto 1fr auto; gap: 8px; padding: 9px 12px; font-size: 11.5px; }
+  .term-demo__head .term-demo__dom { display: none; }
+  .term-demo__body { padding: 12px 14px 14px; gap: 10px; }
+  .term-demo__row p { font-size: 12.5px; }
+  .term-demo__stack li { font-size: 12px; }
+  .term-demo__foot { padding-top: 10px; gap: 10px; }
+  .term-demo__metric b { font-size: 22px; }
+  .term-demo__cta { width: 100%; }
+  .term-cta-btn--sm { font-size: 11px; padding: 6px 10px; flex: 1; text-align: center; }
+  .term-demo__play { width: 50px; height: 50px; }
+
+  /* Process rows wrap nicely */
+  .term-process__row { padding: 14px 16px; }
+  .term-process__name { font-size: 17px; }
+  .term-process__body { font-size: 12.5px; }
+
+  /* Reviews */
+  .term-review { padding: 14px 16px; gap: 6px; }
+  .term-review__q { font-size: 13px; }
+
+  /* Ship log */
+  .ship-log__row { padding: 12px 14px; }
+  .ship-log__name { font-size: 13px; }
+  .ship-log__brief { font-size: 12px; line-height: 1.45; }
+
+  /* Contact */
+  .term-contact__row { padding: 12px 14px; gap: 14px; }
+  .term-contact__k { font-size: 12px; }
+  .term-contact__v { font-size: 12.5px; }
+  .term-contact__meta { font-size: 10.5px; }
+
+  /* CTA buttons stretch */
+  .term-cta-row { flex-direction: column; }
+  .term-cta-btn { width: 100%; text-align: center; padding: 12px 16px; }
+
+  /* Footer */
+  .term-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 0 12px;
+    font-size: 11px;
+  }
+}
+
+/* very small screens — phones <380px */
+@media (max-width: 380px) {
+  .term-status__big { font-size: 26px; }
+  .term-demo__head { grid-template-columns: auto 1fr auto; }
+  .term-demo__head .term-demo__num { display: none; }
+}
+
+
+/* =====================================================================
+   MOBILE CONTENT COMPACT — hide non-essential blocks at small widths
+   ===================================================================== */
+@media (max-width: 600px) {
+  /* ----- Status block: ditch the meta line, keep the headline + stats -----  */
+  .term-status__line { gap: 6px; }
+  .term-status__meta { display: none; }
+  .term-status__list { gap: 6px 0; padding-top: 14px; }
+  .term-status__list span { max-width: 24ch; font-size: 10px; }
+
+  /* ----- Hide the "motto" block — already implied by the headline ----- */
+  .term-quote { display: none; }
+
+  /* ----- Agent result on mobile: drop phases + question by default ----- */
+  /* Keeps summary + approach + demo card + CTA — the essentials */
+  .agent--term .agent__phases,
+  .agent--term .agent__question { display: none; }
+  .agent--term[data-expanded="1"] .agent__phases,
+  .agent--term[data-expanded="1"] .agent__question { display: grid; }
+  .agent--term[data-expanded="1"] .agent__question { display: block; }
+
+  /* "show full plan" mobile toggle, only renders on mobile via CSS injection */
+  .agent--term .agent__cta { flex-direction: column; align-items: stretch; }
+  .agent__expand-mobile {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 11.5px;
+    background: transparent;
+    border: 1px dashed var(--hairline-2);
+    color: var(--ink-mid);
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-top: -4px;
+  }
+  .agent__expand-mobile:hover { color: var(--ink); border-color: var(--ink-mid); }
+  .agent--term[data-expanded="1"] .agent__expand-mobile::after { content: " · hide"; color: var(--ink-mute); }
+
+  /* ----- Demos: keep header, media, summary, metric, CTAs — drop stack list ----- */
+  .term-demo__row.term-demo__row--stack { display: none; }
+  .term-demo__body { gap: 8px; padding: 12px 14px 12px; }
+  .term-demo__media { aspect-ratio: 16 / 10; }
+  .term-demo__play { width: 44px; height: 44px; }
+  .term-demo__play .tri { border-left-width: 9px; border-top-width: 6px; border-bottom-width: 6px; }
+
+  /* ----- Shipping log: trim brief to one line ----- */
+  .ship-log__brief {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ----- Process: shorter description text ----- */
+  .term-process__body {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ----- Reviews: trim to one quote on mobile? no — keep, but tighter ----- */
+  .term-review { padding: 12px 14px; }
+}
+
+/* ----- Even tighter at <380px: drop one quote, keep two ----- */
+@media (max-width: 380px) {
+  .term-reviews .term-review:nth-child(n+3) { display: none; }
+  .term-status__list { grid-template-columns: 1fr 1fr; }
+  .term-status__list li:nth-child(n+3) { display: none; }
+}

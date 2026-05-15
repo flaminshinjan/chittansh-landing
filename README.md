@@ -54,9 +54,52 @@ Open http://localhost:3000.
 - `/`               — home, with live Plan Builder (text · voice · video input)
 - `/about`          — about page
 - `/services`       — services page
-- `/case-studies`   — case studies page
+- `/case-studies`              — index of demos with case studies (CMS-driven)
+- `/case-studies/[slug]`       — single case study (CMS-driven)
+- `/studio`                    — embedded Sanity Studio (content editor)
 - `POST /api/plan`  — backend endpoint, body `{ "input": "..." }`
 - `GET  /health`    — backend health check
+
+## Content (Sanity CMS)
+
+Demos and the shipping log live in **Sanity**. Add/edit them at `/studio` —
+nothing on the home page or `/case-studies` is hardcoded any more.
+
+### One-time CMS setup
+
+1. Create a project at <https://www.sanity.io/manage>. Note the `projectId`.
+2. Generate an **Editor** token (Manage → API → Tokens). This is only needed
+   for the seed script and any future writes.
+3. Fill `frontend/.env.local`:
+
+   ```
+   NEXT_PUBLIC_SANITY_PROJECT_ID=...
+   NEXT_PUBLIC_SANITY_DATASET=production
+   SANITY_WRITE_TOKEN=...        # only for `npm run seed`
+   ```
+
+4. Add the Studio URL to the project's CORS origins in Manage → API → CORS:
+   - `http://localhost:3000` (dev)
+   - your production URL (e.g. `https://chittansh.ai`)
+
+5. Seed the existing demos & ship-log entries into the new dataset:
+
+   ```bash
+   cd frontend
+   npm run seed
+   ```
+
+6. Open <http://localhost:3000/studio> to edit.
+
+### Content model
+
+- **demo** — every demo is treated as an article. Identity (num, slug, badge),
+  card body (summary, stack, metric, CTAs), media (loom / image / embed), and
+  an optional full case study (problem, what-we-built, impact, why-it-matters).
+  Toggle `featuredOnHome` to show it on `/`, and `caseStudy.enabled` to expose
+  `/case-studies/[slug]`.
+- **shipLogEntry** — independent collection for the shipping log on `/`.
+  Date, status, domain, brief, optional link.
 
 ## Env
 
@@ -67,3 +110,7 @@ Open http://localhost:3000.
 | `PORT`              | backend | Optional. Defaults to `8787`. |
 | `CORS_ORIGIN`       | backend | Optional. Defaults to `*`. Tighten in prod. |
 | `NEXT_PUBLIC_API_URL` | frontend | Optional. Defaults to `http://localhost:8787`. |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | frontend | Required for CMS content. |
+| `NEXT_PUBLIC_SANITY_DATASET`    | frontend | Defaults to `production`. |
+| `NEXT_PUBLIC_SANITY_API_VERSION`| frontend | Defaults to `2024-10-01`. |
+| `SANITY_WRITE_TOKEN`            | frontend (server-only) | Required for `npm run seed`. |

@@ -6,17 +6,26 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed": "node scripts/seed.mjs",
+    "studio:deploy": "sanity deploy"
   },
   "dependencies": {
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^3.99.0",
     "next": "^14.2.15",
+    "next-sanity": "^9.12.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.4.1"
   },
   "devDependencies": {
+    "@sanity/client": "^7.22.0",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
+    "dotenv": "^17.4.2",
     "typescript": "^5.5.4"
   }
 }

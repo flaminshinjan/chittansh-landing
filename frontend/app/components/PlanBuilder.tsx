@@ -75,6 +75,7 @@ export default function PlanBuilder() {
   const [result, setResult] = useState<ResultState>(SAMPLE);
   const [stepIndex, setStepIndex] = useState(0);
   const [fresh, setFresh] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -159,7 +160,12 @@ export default function PlanBuilder() {
   }, []);
 
   return (
-    <section className="agent agent--term" id="agent" aria-label="Plan Builder">
+    <section
+      className="agent agent--term"
+      id="agent"
+      aria-label="Plan Builder"
+      data-expanded={expanded ? '1' : '0'}
+    >
       <div className="agent__split">
         {/* INPUT COLUMN */}
         <div className="agent__input-col">
@@ -306,6 +312,14 @@ export default function PlanBuilder() {
               </a>
               <button type="button" className="agent__restart" onClick={handleRestart}>
                 ← reset
+              </button>
+              <button
+                type="button"
+                className="agent__expand-mobile"
+                id="agent-expand-mobile"
+                onClick={() => setExpanded((v) => !v)}
+              >
+                {expanded ? '[ − collapse ]' : '[ + see full plan ]'}
               </button>
             </div>
           </div>

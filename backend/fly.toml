@@ -1,0 +1,26 @@
+app = "chittansh-backend"
+primary_region = "bom"
+
+[env]
+  PORT = "8787"
+  ANTHROPIC_MODEL = "claude-sonnet-4-5-20250929"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+  cpus = 1
+
+[[http_service.checks]]
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "10s"
+  method = "get"
+  path = "/health"
