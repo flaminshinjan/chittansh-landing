@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Research — Chittansh AI</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<meta name="description" content="Field notes from inside production AI engagements. Essays, playbooks, schematics." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.research-list {
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--hairline);
+}
+.research-item {
+  display: grid;
+  grid-template-columns: 100px 200px 1fr auto;
+  gap: 24px;
+  align-items: baseline;
+  padding: 28px 8px;
+  border-bottom: 1px solid var(--hairline);
+  text-decoration: none;
+  color: inherit;
+  transition: background .2s ease, padding .2s ease;
+}
+.research-item:hover { background: var(--bg-elev); padding-left: 20px; padding-right: 20px; }
+.research-item__date { font-size: 13px; color: var(--ink-mute); font-weight: 500; }
+.research-item__tag {
+  display: inline-flex; align-self: start;
+  font-size: 11px; font-weight: 600;
+  padding: 4px 10px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.research-item__body { display: flex; flex-direction: column; gap: 6px; }
+.research-item__title {
+  font-family: var(--display); font-weight: 600;
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--ink);
+}
+.research-item__dek { font-size: 14.5px; color: var(--ink-mid); line-height: 1.55; margin: 0; max-width: 70ch; }
+.research-item__arr { font-size: 18px; color: var(--ink-faint); transition: transform .2s ease, color .2s ease; }
+.research-item:hover .research-item__arr { color: var(--accent); transform: translateX(4px); }
+@media (max-width: 760px) {
+  .research-item { grid-template-columns: 1fr; gap: 6px; padding: 22px 8px; }
+  .research-item:hover { padding-left: 16px; padding-right: 16px; }
+  .research-item__arr { display: none; }
+}
+</style>
+</head>
+<body data-screen-label="Research">
+
+<header class="site-header" id="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="brand">
+      <img class="brand__mark" src="logo.png" alt="Chittansh AI" />
+      <span>Chittansh AI</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      <a href="services.html">Services</a>
+      <a href="demos.html">Demos</a>
+      <a href="research.html">Research</a>
+      <a href="why-us.html">Why us</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="agent.html" class="btn btn-solid" data-agent-launch="1">Try our agent builder</a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero hero--page">
+  <div class="container hero__inner">
+    <span class="pill-kicker hero__pill">RESEARCH</span>
+    <h1 class="h-display hero__title">Field notes. <em>From inside the engagement.</em></h1>
+    <p class="lede hero__lede">Essays, playbooks and schematics from the systems we&rsquo;ve shipped. What worked. What broke at 3am. What we&rsquo;d build differently next time.</p>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="research-list">
+
+    <a href="#" class="research-item">
+      <span class="research-item__date">May 2026</span>
+      <span class="research-item__tag">ESSAY</span>
+      <div class="research-item__body">
+        <h3 class="research-item__title">The pilot tax: why most enterprise AI never makes it to operations</h3>
+        <p class="research-item__dek">A field analysis of 41 stalled enterprise AI initiatives. What kills them, why ownership matters more than model choice, and the three pre-conditions that predict survival.</p>
+      </div>
+      <span class="research-item__arr">→</span>
+    </a>
+
+    <a href="#" class="research-item">
+      <span class="research-item__date">Apr 2026</span>
+      <span class="research-item__tag">PLAYBOOK</span>
+      <div class="research-item__body">
+        <h3 class="research-item__title">Designing for the day after launch — an operator&rsquo;s checklist</h3>
+        <p class="research-item__dek">A practical checklist for the first 90 days of a live AI system: SLAs, override review, drift cadence, compliance pack, and the meeting structure that keeps it alive.</p>
+      </div>
+      <span class="research-item__arr">→</span>
+    </a>
+
+    <a href="#" class="research-item">
+      <span class="research-item__date">Mar 2026</span>
+      <span class="research-item__tag">SCHEMATIC</span>
+      <div class="research-item__body">
+        <h3 class="research-item__title">The five-layer schematic we sketch on every kick-off call</h3>
+        <p class="research-item__dek">A walk-through of the architecture we use to align engineering, ops and compliance before a single model is chosen — with three worked examples from production.</p>
+      </div>
+      <span class="research-item__arr">→</span>
+    </a>
+
+    <a href="#" class="research-item">
+      <span class="research-item__date">Feb 2026</span>
+      <span class="research-item__tag">ESSAY</span>
+      <div class="research-item__body">
+        <h3 class="research-item__title">What we got wrong with our first voice deployment</h3>
+        <p class="research-item__dek">The three architectural decisions we wish we&rsquo;d reversed in week one — and the latency, escalation and override patterns that fix them.</p>
+      </div>
+      <span class="research-item__arr">→</span>
+    </a>
+
+    <a href="#" class="research-item">
+      <span class="research-item__date">Jan 2026</span>
+      <span class="research-item__tag">BENCHMARK</span>
+      <div class="research-item__body">
+        <h3 class="research-item__title">RAG that cites: a benchmark across six retrieval stacks</h3>
+        <p class="research-item__dek">We ran the same regulator-filings corpus through pgvector + BM25, Qdrant, Pinecone, OpenSearch hybrid, and two boutique rerankers. Numbers and tradeoffs inside.</p>
+      </div>
+      <span class="research-item__arr">→</span>
+    </a>
+
+    <a href="#" class="research-item">
+      <span class="research-item__date">Dec 2025</span>
+      <span class="research-item__tag">PLAYBOOK</span>
+      <div class="research-item__body">
+        <h3 class="research-item__title">Kill-criteria: how to write them so the engagement actually ends</h3>
+        <p class="research-item__dek">Most AI projects can&rsquo;t be killed because nobody wrote what success looks like. A pragmatic template for the first page of every thesis sprint.</p>
+      </div>
+      <span class="research-item__arr">→</span>
+    </a>
+
+  </div>
+</section>
+
+<section class="container final-cta" id="contact">
+  <div class="final-cta__card">
+    <h2 class="h-section final-cta__title">Want the field notes <em>before they ship?</em></h2>
+    <div class="final-cta__right">
+      <p>We send one well-formed note a month. No newsletter sequence, no upsell. Reply to ask anything.</p>
+      <div class="final-cta__buttons">
+        <a href="mailto:hello@chittanshai.com?subject=Subscribe%20to%20Field%20Notes" class="btn btn-solid">Subscribe</a>
+        <a href="agent.html" class="btn btn-outline">Try the agent builder</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2 class="footer-tag">AI you can put into operations.</h2>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-ghost btn-sm">hello@chittanshai.com</a>
+      </div>
+      <div class="footer-col"><h4>Work</h4>
+        <ul><li><a href="demos.html">Demos</a></li><li><a href="services.html">Services</a></li><li><a href="case-studies.html">Case studies</a></li><li><a href="research.html">Research</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Company</h4>
+        <ul><li><a href="why-us.html">Why us</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:careers@chittanshai.com">Careers</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Office</h4>
+        <ul><li>Gurgaon · Bengaluru</li><li>Mon — Fri</li><li>By appointment</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Chittansh AI Solutions Pvt Ltd</span><span>v3.0 · ship the thing</span></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const h = document.getElementById('hamburger'), header = document.getElementById('site-header');
+    if (!h || !header) return;
+    h.addEventListener('click', () => header.classList.toggle('is-menu-open'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('is-menu-open')));
+  })();
+</script>
+</body>
+</html>

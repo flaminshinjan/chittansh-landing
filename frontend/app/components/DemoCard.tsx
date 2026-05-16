@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { urlForImage } from '../../sanity/image';
 import type { Demo } from '../../sanity/types';
@@ -9,110 +10,82 @@ const BADGE_LABEL: Record<string, string> = {
   nda: 'NDA',
 };
 
+function titleCaseFromName(name: string): string {
+  // "echo-returns.case" → "Echo Returns"
+  const stem = name.replace(/\.case$/i, '');
+  return stem
+    .split(/[-_\s]+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 export default function DemoCard({ demo }: { demo: Demo }) {
   const badgeClass = demo.badge ?? 'live';
   const badgeLabel = BADGE_LABEL[badgeClass] ?? 'LIVE';
-  const slot = demo.slug?.current ?? demo.num;
+  const displayName = titleCaseFromName(demo.name);
+  const href =
+    demo.caseStudy?.enabled && demo.slug?.current
+      ? `/case-studies/${demo.slug.current}`
+      : '#';
 
   return (
-    <article className="term-demo">
-      <header className="term-demo__head">
-        <span className="term-demo__num">{demo.num}</span>
-        <span className="term-demo__name">{demo.name}</span>
-        <span className="term-demo__dom">{demo.domain}</span>
-        <span className={`term-demo__badge ${badgeClass}`}>[ {badgeLabel} ]</span>
-      </header>
-
-      <div className="term-demo__media">
-        <DemoMedia demo={demo} slot={slot} />
-        <button className="term-demo__play" type="button" aria-label="Watch demo">
+    <Link href={href} className="demo-card">
+      <div className="demo-card__media">
+        <DemoMedia demo={demo} />
+        <span className={`demo-card__badge${badgeClass !== 'private' ? ` ${badgeClass}` : ''}`}>
+          {badgeLabel}
+        </span>
+        <button className="demo-card__play" type="button" aria-label="Play" tabIndex={-1}>
           <span className="tri"></span>
         </button>
       </div>
-
-      <div className="term-demo__body">
-        <div className="term-demo__row">
-          <span className="agent-term__label">// summary</span>
-          <p>{demo.summary}</p>
+      <div className="demo-card__body">
+        <div className="demo-card__meta">
+          <span className="demo-card__domain">{demo.domain}</span>
         </div>
-
-        {demo.stack?.length ? (
-          <div className="term-demo__row term-demo__row--stack">
-            <span className="agent-term__label">// stack</span>
-            <ul className="term-demo__stack">
-              {demo.stack.map((line, i) => (
-                <li key={i}>{line}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-
-        <footer className="term-demo__foot">
+        <h3 className="h-card demo-card__name">{displayName}</h3>
+        <p className="demo-card__dek">{demo.summary}</p>
+        <div className="demo-card__foot">
           {demo.metric ? (
-            <div className="term-demo__metric">
+            <div className="demo-card__metric">
               <b>{demo.metric.value}</b>
               <span>{demo.metric.label}</span>
             </div>
           ) : (
-            <div className="term-demo__metric" />
+            <div className="demo-card__metric" />
           )}
-          <div className="term-demo__cta">
-            {demo.ctas?.length
-              ? demo.ctas.map((cta, i) => (
-                  <a
-                    key={i}
-                    href={cta.href}
-                    className={
-                      'term-cta-btn term-cta-btn--sm' +
-                      (cta.variant === 'ghost' ? ' term-cta-btn--ghost' : '')
-                    }
-                  >
-                    [ {cta.label} ]
-                  </a>
-                ))
-              : demo.caseStudy?.enabled && (
-                  <a
-                    href={`/case-studies/${demo.slug.current}`}
-                    className="term-cta-btn term-cta-btn--sm term-cta-btn--ghost"
-                  >
-                    [ case study ]
-                  </a>
-                )}
-          </div>
-        </footer>
+          <span className="demo-card__more">
+            {demo.caseStudy?.enabled ? 'Case study' : demo.ctas?.[0]?.label || 'Walkthrough'}{' '}
+            <span>→</span>
+          </span>
+        </div>
       </div>
-    </article>
+    </Link>
   );
 }
 
-function DemoMedia({ demo, slot }: { demo: Demo; slot: string }) {
+function DemoMedia({ demo }: { demo: Demo }) {
   const media = demo.media;
-  if (!media) {
-    return (
-      <div className="term-demo__slot" data-slot={slot}>
-        <span className="mono">media · drop in</span>
-      </div>
-    );
-  }
+  const placeholder = media?.placeholderText ?? 'media · drop in';
 
-  if (media.kind === 'image' && media.image) {
-    const src = urlForImage(media.image as any).width(1200).url();
+  if (media?.kind === 'image' && media.image) {
+    const src = urlForImage(media.image as any).width(900).url();
     return (
-      <div className="term-demo__slot" data-slot={slot}>
+      <div className="demo-card__media-slot">
         <Image
           src={src}
           alt={demo.name}
           fill
-          sizes="(min-width: 900px) 33vw, 100vw"
+          sizes="(min-width: 1000px) 33vw, 100vw"
           style={{ objectFit: 'cover' }}
         />
       </div>
     );
   }
 
-  if ((media.kind === 'embed' || media.kind === 'loom' || media.kind === 'video') && media.url) {
+  if ((media?.kind === 'embed' || media?.kind === 'loom' || media?.kind === 'video') && media.url) {
     return (
-      <div className="term-demo__slot" data-slot={slot}>
+      <div className="demo-card__media-slot">
         <iframe
           src={media.url}
           allow="autoplay; fullscreen; picture-in-picture"
@@ -124,8 +97,8 @@ function DemoMedia({ demo, slot }: { demo: Demo; slot: string }) {
   }
 
   return (
-    <div className="term-demo__slot" data-slot={slot}>
-      <span className="mono">{media.placeholderText ?? 'media · drop in'}</span>
+    <div className="demo-card__media-slot">
+      <span>{placeholder}</span>
     </div>
   );
 }

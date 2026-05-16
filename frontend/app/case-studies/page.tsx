@@ -3,7 +3,7 @@ import CaseStudy from '../components/CaseStudy';
 import { getCaseStudyDemos } from '../../sanity/fetch';
 
 export const metadata = {
-  title: 'chittansh.ai/cases',
+  title: 'Case Studies — Chittansh AI',
 };
 
 export const revalidate = 60;
@@ -15,61 +15,47 @@ export default async function CaseStudiesPage() {
     <>
       <Header />
 
-      <main className="term-main">
+      <section className="hero hero--page">
+        <div className="container hero__inner">
+          <span className="pill-kicker hero__pill">CASE STUDIES</span>
+          <h1 className="h-display hero__title">
+            Running systems. <em>Real use.</em>
+          </h1>
+          <p className="lede hero__lede">
+            No mock dashboards. {cases.length || 'A handful of'} production systems — what we built,
+            how it&rsquo;s wired, what changed for the business.
+          </p>
+        </div>
+      </section>
 
-        <section className="term-block">
-          <div className="term-prompt"><span className="dollar">$</span> ls <span className="flag">-lat</span> ./cases/</div>
-          <div className="term-subprompt">
-            <span className="term-status__arrow">►</span> {cases.length} production system{cases.length === 1 ? '' : 's'} · what we built, how it's wired, what changed
-          </div>
-        </section>
-
+      <section className="container section">
         {cases.length === 0 ? (
-          <section className="term-block">
-            <p className="term-subprompt">
-              no case studies yet — flag a demo's <code>caseStudy.enabled</code> at{' '}
-              <a href="/studio">/studio</a>.
-            </p>
-          </section>
+          <p className="lede">
+            No case studies yet — toggle <code>caseStudy.enabled</code> on a demo at{' '}
+            <a href="/studio">/studio</a>.
+          </p>
         ) : (
-          cases.map((demo, i) => (
-            <div key={demo._id}>
-              <CaseStudy demo={demo} index={i} />
-              <hr className="term-rule" />
-            </div>
-          ))
+          cases.map((demo, i) => <CaseStudy key={demo._id} demo={demo} index={i} />)
         )}
+      </section>
 
-        <section className="term-block">
-          <div className="term-prompt"><span className="dollar">$</span> chittansh.ai <span className="flag">--your-case-next</span></div>
-          <div className="term-subprompt">
-            <span className="term-status__arrow">►</span> these could be us writing about you in 12 weeks
-          </div>
-          <div className="term-cta-row">
-            <a href="/#agent" className="term-cta-btn">[ open plan_builder ↵ ]</a>
-            <a href="mailto:hello@chittanshai.com" className="term-cta-btn term-cta-btn--ghost">[ email instead ]</a>
-          </div>
-        </section>
-
-        <hr className="term-rule" />
-
-        <section id="contact" className="term-block">
-          <div className="term-prompt"><span className="dollar">$</span> chittansh.ai <span className="flag">--contact</span></div>
-          <div className="term-contact">
-            <div className="term-contact__row">
-              <span className="term-contact__k">&gt; email</span>
-              <a href="mailto:hello@chittanshai.com" className="term-contact__v">hello@chittanshai.com</a>
-              <span className="term-contact__meta">reply within 6h, weekdays</span>
-            </div>
-            <div className="term-contact__row">
-              <span className="term-contact__k">&gt; office</span>
-              <span className="term-contact__v">gurgaon · bengaluru</span>
-              <span className="term-contact__meta">by appointment</span>
+      <section className="container final-cta" id="contact">
+        <div className="final-cta__card">
+          <h2 className="h-section final-cta__title">
+            Your case study, <em>next.</em>
+          </h2>
+          <div className="final-cta__right">
+            <p>
+              These could be us writing about you in 12 weeks. Describe your workflow in the Plan
+              Builder and we&rsquo;ll match it to a demo and draft a plan.
+            </p>
+            <div className="final-cta__buttons">
+              <a href="/agent" className="btn btn-solid">Open Plan Builder</a>
+              <a href="mailto:hello@chittanshai.com" className="btn btn-outline">Email us</a>
             </div>
           </div>
-        </section>
-
-      </main>
+        </div>
+      </section>
     </>
   );
 }

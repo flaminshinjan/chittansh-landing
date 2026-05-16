@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Echo Returns — Demo — Chittansh AI</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<meta name="description" content="Inbound voice agent containing 38% of returns & exchange calls end-to-end. Sub-1.4s latency, OMS tool-use, clean escalation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Demo detail page */
+.demo-hero {
+  padding-top: clamp(48px, 6vw, 80px);
+  padding-bottom: clamp(32px, 4vw, 48px);
+}
+.demo-hero__crumb {
+  font-size: 13px; color: var(--ink-mute);
+  display: inline-flex; gap: 6px; align-items: center;
+  margin-bottom: 20px;
+}
+.demo-hero__crumb a { color: var(--accent-ink); }
+.demo-hero__head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+.demo-hero__badge { font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 999px; }
+.demo-hero__badge.live { background: var(--green-soft); color: var(--green-ink); }
+.demo-hero__domain { font-size: 13.5px; color: var(--ink-mute); font-weight: 500; }
+.demo-hero__title { margin: 0; }
+.demo-hero__lede { margin-top: 20px; max-width: 64ch; }
+
+/* Big media block */
+.demo-media-block {
+  margin-top: clamp(32px, 4vw, 48px);
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--hairline);
+}
+.demo-media-block__slot {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 50%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 14px, rgba(255,255,255,.07) 14px 28px);
+  display: grid; place-items: center;
+}
+.demo-media-block__slot span { color: rgba(255,255,255,.6); font-size: 13px; padding: 8px 16px; border: 1px dashed rgba(255,255,255,.22); border-radius: 4px; }
+.demo-media-block__play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 96px; height: 96px; border-radius: 50%;
+  background: white; border: 0; cursor: pointer;
+  display: grid; place-items: center;
+  transition: transform .25s ease;
+}
+.demo-media-block__play:hover { transform: translate(-50%,-50%) scale(1.06); }
+.demo-media-block__play .tri {
+  width: 0; height: 0;
+  border-left: 22px solid var(--ink);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 6px;
+}
+
+/* Quick facts strip */
+.demo-facts {
+  margin-top: clamp(24px, 3vw, 40px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  padding: 28px 0;
+}
+.demo-fact { padding: 0 24px; border-right: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 4px; }
+.demo-fact:first-child { padding-left: 0; }
+.demo-fact:last-child { border-right: 0; padding-right: 0; }
+.demo-fact b {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(24px, 2.4vw, 32px);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  line-height: 1;
+}
+.demo-fact span { font-size: 12px; color: var(--ink-mute); letter-spacing: 0.02em; }
+@media (max-width: 760px) {
+  .demo-facts { grid-template-columns: 1fr 1fr; gap: 18px 0; padding: 22px 0; }
+  .demo-fact { padding: 0 16px; }
+  .demo-fact:nth-child(2) { border-right: 0; }
+  .demo-fact:nth-child(3) { border-right: 1px solid var(--hairline); padding-left: 0; }
+}
+
+/* Article body */
+.demo-article {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: clamp(40px, 5vw, 80px);
+  padding-top: clamp(40px, 5vw, 64px);
+}
+.demo-article__body {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  max-width: 65ch;
+}
+.demo-article__body h2 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(24px, 2.4vw, 32px);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin: 48px 0 16px;
+}
+.demo-article__body h2:first-child { margin-top: 0; }
+.demo-article__body h3 {
+  font-family: var(--display); font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  margin: 32px 0 10px;
+}
+.demo-article__body p { margin: 0 0 18px; color: var(--ink-mid); }
+.demo-article__body p strong { color: var(--ink); font-weight: 600; }
+.demo-article__body em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--accent-ink); }
+.demo-article__body ul { padding-left: 22px; margin: 0 0 18px; }
+.demo-article__body li { margin: 0 0 8px; color: var(--ink-mid); }
+.demo-article__body li::marker { color: var(--accent); }
+.demo-article__body blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 6px 0 6px 20px;
+  margin: 24px 0;
+  font-family: var(--display); font-weight: 500;
+  font-size: 19px;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+.demo-article__body code {
+  font-family: ui-monospace, "SF Mono", monospace;
+  background: var(--bg-elev);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--accent-ink);
+}
+
+.demo-article__aside {
+  position: sticky; top: 100px;
+  align-self: start;
+  display: flex; flex-direction: column; gap: 24px;
+  padding: 24px;
+  background: var(--bg-elev);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+}
+.aside-block { display: flex; flex-direction: column; gap: 8px; }
+.aside-block h4 {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0;
+}
+.aside-block ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.aside-block li { font-size: 14px; color: var(--ink-mid); padding-left: 14px; position: relative; line-height: 1.4; }
+.aside-block li::before { content: "·"; position: absolute; left: 2px; color: var(--accent); font-weight: 700; font-size: 16px; line-height: 1; top: -1px; }
+.aside-block p { margin: 0; font-size: 14px; color: var(--ink-mid); line-height: 1.5; }
+.aside-block a { color: var(--accent-ink); border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
+@media (max-width: 980px) {
+  .demo-article { grid-template-columns: 1fr; }
+  .demo-article__aside { position: static; }
+}
+
+/* Mobile tighten */
+@media (max-width: 600px) {
+  .demo-hero { padding: 32px 0 24px; }
+  .demo-article { padding-top: 32px; }
+  .demo-article__body { font-size: 16px; line-height: 1.65; }
+  .demo-media-block__play { width: 64px; height: 64px; }
+  .demo-media-block__play .tri { border-left-width: 16px; border-top-width: 10px; border-bottom-width: 10px; margin-left: 4px; }
+}
+</style>
+</head>
+<body data-screen-label="Demo · Echo Returns">
+
+<header class="site-header" id="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="brand">
+      <img class="brand__mark" src="logo.png" alt="Chittansh AI" />
+      <span>Chittansh AI</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      <a href="services.html">Services</a>
+      <a href="demos.html">Demos</a>
+      <a href="research.html">Research</a>
+      <a href="why-us.html">Why us</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="agent.html" class="btn btn-solid" data-agent-launch="1">Try our agent builder</a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- DEMO HERO -->
+<section class="container demo-hero">
+  <div class="demo-hero__crumb">
+    <a href="demos.html">← All demos</a>
+    <span>·</span>
+    <span>Echo Returns</span>
+  </div>
+  <div class="demo-hero__head">
+    <span class="demo-hero__badge live">LIVE</span>
+    <span class="demo-hero__domain">Voice · E-commerce</span>
+  </div>
+  <h1 class="h-display demo-hero__title">Echo Returns</h1>
+  <p class="lede demo-hero__lede">
+    An inbound voice agent that contains <em>38% of returns &amp; exchange calls</em> end-to-end on a DTC apparel store. Sub-1.4s latency, real OMS tool-use, clean escalation when policy gets ambiguous.
+  </p>
+
+  <div class="demo-media-block">
+    <div class="demo-media-block__slot"><span>loom · drop in your video</span></div>
+    <button class="demo-media-block__play" type="button" aria-label="Play demo"><span class="tri"></span></button>
+  </div>
+
+  <div class="demo-facts">
+    <div class="demo-fact"><b>38%</b><span>Calls contained end-to-end</span></div>
+    <div class="demo-fact"><b>1.4s</b><span>Median end-to-end latency</span></div>
+    <div class="demo-fact"><b>7</b><span>OMS &amp; carrier tools wired</span></div>
+    <div class="demo-fact"><b>17 days</b><span>From thesis to live line</span></div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section class="container demo-article">
+  <article class="demo-article__body">
+
+    <h2>The problem we were handed</h2>
+    <p>The customer ops lead at a DTC apparel brand walked us through the queue numbers on call one. 4,000 inbound calls a month, 71% of them about <em>returns, exchanges, or order status.</em> The BPO they used charged per-minute and hit a service-level cliff every time a campaign launched.</p>
+    <p>They&rsquo;d tried two voice vendors before us. Both demoed beautifully and neither shipped. The first one couldn&rsquo;t hit a latency budget. The second one couldn&rsquo;t hold an OMS handle for a full call.</p>
+
+    <h2>The decision we made on call two</h2>
+    <p>The biggest architectural call was on streaming. <strong>We refused to put a turn-based stack into voice.</strong> Every vendor that does turn-based voice agents (record → ASR → reason → TTS → play) eats 2.5–3.5 seconds per turn. That&rsquo;s a dead conversation.</p>
+    <p>So we built on a streaming reasoner with partial-token TTS, sub-1.4s end-to-end median. <em>The agent starts speaking before it&rsquo;s done thinking.</em> Sounds like a human pausing, not a robot waiting.</p>
+
+    <h3>What tool-use looks like in production</h3>
+    <p>The agent has direct, audited access to the OMS, the WMS, the payment processor and the carrier API. Each tool call is wrapped, logged, and reversible. The escalation policy is explicit: anything outside the policy window goes to a human with full transcript and context.</p>
+    <p>We don&rsquo;t let the agent improvise on refunds. The policy lives in code, not in a system prompt.</p>
+
+    <blockquote>The third call was a status review. We were already live on 5% of inbound traffic by then.</blockquote>
+
+    <h2>What changed for the business</h2>
+    <p>The 38% containment number is the headline, but it's not the one ops cared about most. They cared about <strong>first-call resolution on the 62% that escalate.</strong> Because the agent hands the human a transcript, a customer profile and a proposed next action — FCR on escalated calls went up 31%.</p>
+    <p>The other thing that mattered: the agent generates a weekly insights pack from anonymised transcripts. Top exception reasons, fulfilment time complaints, copy issues — straight to product and ops. <em>The voice queue became a research instrument.</em></p>
+
+    <h3>The architecture, briefly</h3>
+    <ul>
+      <li><strong>Telephony.</strong> SIP ingress into a streaming reasoner. Twilio + Plivo failover.</li>
+      <li><strong>Reasoning.</strong> Claude with explicit tool schema, streaming output, partial-token TTS.</li>
+      <li><strong>Tools.</strong> Direct, wrapped API access into OMS, WMS, payments, carrier. Reversible.</li>
+      <li><strong>Audit.</strong> Every action recorded with rationale + state diff. Replayable for review.</li>
+      <li><strong>Escalation.</strong> Policy in code. Out-of-policy → warm transfer with full context.</li>
+    </ul>
+
+    <h2>What broke</h2>
+    <p>The first week, we underestimated how often callers swap context mid-call. ("Actually, can I exchange instead of return?") The agent would commit to one tool path and stall. We rebuilt the dialogue policy to keep <em>multiple tool intents alive</em> until the customer confirms. Latency went up by 80ms. Worth it.</p>
+    <p>The second thing that broke: a regional carrier API returned status codes outside the spec. The agent saw "unknown" and escalated every time. We added a fallback path that retries with a different carrier integration. Most ops teams never see this kind of stuff — it&rsquo;s where the value lives.</p>
+
+    <h2>Want this for your queue?</h2>
+    <p>Describe your workflow in the <a href="agent.html">agent builder</a> — we&rsquo;ll match it against Echo Returns and draft a tailored 8-week plan. Or email <a href="mailto:hello@chittanshai.com">hello@chittanshai.com</a> and we&rsquo;ll set up a 30-minute call with the engineer who built it.</p>
+  </article>
+
+  <aside class="demo-article__aside">
+    <div class="aside-block">
+      <h4>Domain</h4>
+      <p>Voice · E-commerce<br/>Customer operations</p>
+    </div>
+    <div class="aside-block">
+      <h4>Stack</h4>
+      <ul>
+        <li>SIP · WebRTC · Twilio</li>
+        <li>Whisper + custom TTS</li>
+        <li>Claude · streaming reasoner</li>
+        <li>OMS + carrier tool-use</li>
+        <li>Recording + audit log</li>
+      </ul>
+    </div>
+    <div class="aside-block">
+      <h4>Engagement</h4>
+      <p>8-week Production Build<br/>Outcome-linked pricing</p>
+    </div>
+    <div class="aside-block">
+      <h4>Operator</h4>
+      <p>Customer Ops lead<br/>BPO co-managed during ramp</p>
+    </div>
+    <div class="aside-block">
+      <h4>Try it</h4>
+      <p>
+        <a href="agent.html">Run the agent builder →</a><br/>
+        <a href="mailto:hello@chittanshai.com">Email us →</a>
+      </p>
+    </div>
+  </aside>
+</section>
+
+<!-- RELATED -->
+<section class="container section">
+  <div class="section-head">
+    <span class="section-head__pill">Related</span>
+    <h2 class="h-section section-head__title">More demos <em>in the same shape.</em></h2>
+  </div>
+
+  <div class="demos">
+    <a href="demo-echo-returns.html" class="demo-card">
+      <div class="demo-card__media">
+        <div class="demo-card__media-slot"><span>claims console capture</span></div>
+        <span class="demo-card__badge sandbox">SANDBOX</span>
+      </div>
+      <div class="demo-card__body">
+        <div class="demo-card__meta"><span class="demo-card__domain">Claims · Insurance</span></div>
+        <h3 class="h-card demo-card__name">Triage.OS</h3>
+        <p class="demo-card__dek">Vision + text claims triage with fraud signals and adjuster console.</p>
+        <div class="demo-card__foot">
+          <div class="demo-card__metric"><b>4.1×</b><span>adjuster throughput</span></div>
+          <span class="demo-card__more">Open demo <span>→</span></span>
+        </div>
+      </div>
+    </a>
+    <a href="demo-echo-returns.html" class="demo-card">
+      <div class="demo-card__media">
+        <div class="demo-card__media-slot"><span>ops control room ui</span></div>
+        <span class="demo-card__badge">PRIVATE</span>
+      </div>
+      <div class="demo-card__body">
+        <div class="demo-card__meta"><span class="demo-card__domain">Ops · Logistics</span></div>
+        <h3 class="h-card demo-card__name">Routeline</h3>
+        <p class="demo-card__dek">Control-room agent watching exception queues. Writes customer, carrier and ticket comms.</p>
+        <div class="demo-card__foot">
+          <div class="demo-card__metric"><b>−61%</b><span>time on exception</span></div>
+          <span class="demo-card__more">Open demo <span>→</span></span>
+        </div>
+      </div>
+    </a>
+    <a href="demo-echo-returns.html" class="demo-card">
+      <div class="demo-card__media">
+        <div class="demo-card__media-slot"><span>onboarding chat flow</span></div>
+        <span class="demo-card__badge live">LIVE</span>
+      </div>
+      <div class="demo-card__body">
+        <div class="demo-card__meta"><span class="demo-card__domain">Onboarding · Banking</span></div>
+        <h3 class="h-card demo-card__name">KYC, conversational</h3>
+        <p class="demo-card__dek">3-minute chat replaces a 22-field form. Drop-in for existing KYC stack.</p>
+        <div class="demo-card__foot">
+          <div class="demo-card__metric"><b>30×</b><span>completion vs. form</span></div>
+          <span class="demo-card__more">Open demo <span>→</span></span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container final-cta" id="contact">
+  <div class="final-cta__card">
+    <h2 class="h-section final-cta__title">Have a queue like this? <em>Bring it to us.</em></h2>
+    <div class="final-cta__right">
+      <p>Describe your workflow in the agent builder and we&rsquo;ll match it to a demo and draft an 8-week plan in 60 seconds.</p>
+      <div class="final-cta__buttons">
+        <a href="agent.html" class="btn btn-solid">Try our agent builder</a>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-outline">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2 class="footer-tag">AI you can put into operations.</h2>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-ghost btn-sm">hello@chittanshai.com</a>
+      </div>
+      <div class="footer-col"><h4>Work</h4>
+        <ul><li><a href="demos.html">Demos</a></li><li><a href="services.html">Services</a></li><li><a href="case-studies.html">Case studies</a></li><li><a href="research.html">Research</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Company</h4>
+        <ul><li><a href="why-us.html">Why us</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:careers@chittanshai.com">Careers</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Office</h4>
+        <ul><li>Gurgaon · Bengaluru</li><li>Mon — Fri</li><li>By appointment</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Chittansh AI Solutions Pvt Ltd</span><span>v3.0 · ship the thing</span></div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const h = document.getElementById('hamburger'), header = document.getElementById('site-header');
+    if (!h || !header) return;
+    h.addEventListener('click', () => header.classList.toggle('is-menu-open'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('is-menu-open')));
+  })();
+</script>
+</body>
+</html>

@@ -3,161 +3,319 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>chittansh.ai/services</title>
+<title>Services — Chittansh AI</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<meta name="description" content="Four production AI surfaces — voice, agents, RAG, internal copilots. Three engagement modes — sprint, build, operating partner." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="term" data-screen-label="Services">
+<body data-screen-label="Services">
 
-<header class="term-header">
-  <div class="term-header__inner">
-    <a href="index.html" class="term-brand">
-      <span class="term-brand__bracket">[</span><span class="term-brand__name">chittansh.ai</span><span class="term-brand__bracket">]</span>
-      <span class="term-brand__path">~/services</span>
+<header class="site-header" id="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="brand">
+      <img class="brand__mark" src="logo.png" alt="Chittansh AI" />
+      <span>Chittansh AI</span>
     </a>
-    <nav class="term-nav">
-      <a href="index.html#shipping-log">./shipped</a>
-      <a href="services.html" class="is-active">./services</a>
-      <a href="case-studies.html">./cases</a>
-      <a href="about.html">./about</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="services.html">Services</a>
+      <a href="demos.html">Demos</a>
+      <a href="research.html">Research</a>
+      <a href="why-us.html">Why us</a>
     </nav>
-    <a href="#contact" class="term-cta">
-      <span class="term-cta__dot"></span>
-      ./contact <span class="arr">→</span>
-    </a>
-  </div>
-  <div class="scroll-meter" aria-hidden="true">
-    <span class="scroll-meter__num" id="scroll-meter-num">0</span><span class="scroll-meter__pct">%</span>
-    <span class="scroll-meter__bar"><span class="scroll-meter__fill" id="scroll-meter-fill"></span></span>
+    <div class="nav-cta">
+      <a href="agent.html" class="btn btn-solid" data-agent-launch="1">Try our agent builder</a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 
-<main class="term-main">
-
-<section class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> ls <span class="flag">./surfaces/</span></div>
-  <div class="term-subprompt"><span class="term-status__arrow">►</span> four production surfaces we ship · all plug into a workflow that pays bills</div>
-
-  <div class="ship-log">
-    <div class="ship-log__head ship-log__head--svc">
-      <span>id</span>
-      <span>surface</span>
-      <span>stack</span>
-      <span>best for</span>
-      <span>demo</span>
-    </div>
-    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
-      <span class="ship-log__date">01</span>
-      <span class="ship-log__name">voice agents</span>
-      <span class="ship-log__domain">SIP · WebRTC · TTS</span>
-      <span class="ship-log__brief">sub-1.4s latency, tool-using, recording &amp; review. returns, collections, triage, advisor support.</span>
-      <span class="ship-log__arr">echo-returns →</span>
-    </a>
-    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
-      <span class="ship-log__date">02</span>
-      <span class="ship-log__name">multi-tool agents</span>
-      <span class="ship-log__domain">LangGraph · MCP · Temporal</span>
-      <span class="ship-log__brief">live inside your CRM, ticketing, editor, back-office. tool-use, audit trail, override review.</span>
-      <span class="ship-log__arr">triage-os →</span>
-    </a>
-    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
-      <span class="ship-log__date">03</span>
-      <span class="ship-log__name">rag &amp; search</span>
-      <span class="ship-log__domain">pgvector · Qdrant · BM25</span>
-      <span class="ship-log__brief">permissioned, row-level access, citation-locked. regulator filings, wikis, contracts.</span>
-      <span class="ship-log__arr">ledger-copilot →</span>
-    </a>
-    <a href="index.html#agent" class="ship-log__row ship-log__row--svc">
-      <span class="ship-log__date">04</span>
-      <span class="ship-log__name">internal copilots</span>
-      <span class="ship-log__domain">Next · React · server actions</span>
-      <span class="ship-log__brief">editor cockpits, advisor copilots, ops control rooms. keyboard-first, override-aware.</span>
-      <span class="ship-log__arr">briefroom →</span>
-    </a>
+<section class="hero hero--page">
+  <div class="container hero__inner">
+    <span class="pill-kicker hero__pill">SERVICES</span>
+    <h1 class="h-display hero__title">We build the AI <em>that goes on-call.</em></h1>
+    <p class="lede hero__lede">Four production surfaces, three engagement modes. No general-purpose chatbots — every system we ship is connected to a P&amp;L line, an SLA, or somebody&rsquo;s pager.</p>
   </div>
 </section>
 
-<hr class="term-rule"/>
+<!-- ============== SURFACES — alternating rows ============== -->
+<section class="container section" id="surfaces">
+  <div class="section-head">
+    <span class="section-head__pill">What we build</span>
+    <h2 class="h-section section-head__title">Four surfaces. <em>All shipped to production.</em></h2>
+  </div>
 
-<section class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--engagements</span></div>
-  <div class="term-subprompt"><span class="term-status__arrow">►</span> three engagement modes · pick the smallest one that ships something</div>
+  <!-- VOICE -->
+  <div class="surface-row">
+    <div class="surface-row__media">
+      <div class="surface-row__media-inner">
+        <span class="surface-row__chip">⌁ LIVE CALL</span>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">CUSTOMER · 0:04</div>
+          <div class="surface-row__mockup-line">&ldquo;Need to swap a small for a medium.&rdquo;</div>
+        </div>
+        <div class="surface-row__mockup" style="margin-left:24px;background:#1A1714;color:white;border-color:#1A1714;">
+          <div class="surface-row__mockup-label" style="color:rgba(255,255,255,.55);">AGENT · 0:05 · ⌁ 1.3s</div>
+          <div class="surface-row__mockup-line" style="color:white;">→ <code>oms.lookupOrder(8821)</code></div>
+          <div class="surface-row__mockup-line" style="color:rgba(255,255,255,.85);">&ldquo;Got it. Same colour, free exchange.&rdquo;</div>
+        </div>
+      </div>
+    </div>
+    <div class="surface-row__body">
+      <span class="surface-row__num">Surface 01</span>
+      <h3 class="surface-row__title">Voice agents <em>that don&rsquo;t sound like 2022.</em></h3>
+      <p class="surface-row__dek">Streaming voice, sub-1.4s end-to-end. Tool-use over your order, CRM and payment APIs. Recording, audit and escalation policy baked in from day one.</p>
+      <ul class="surface-row__list">
+        <li>Inbound &amp; outbound on real telephony</li>
+        <li>Custom TTS · voice clones · multilingual</li>
+        <li>Override review &amp; warm transfer to humans</li>
+      </ul>
+      <div class="surface-row__stack">
+        <span>SIP</span><span>WebRTC</span><span>Twilio</span><span>Whisper</span><span>Custom TTS</span>
+      </div>
+    </div>
+  </div>
 
-  <div class="term-process">
-    <div class="term-process__row">
-      <span class="term-process__n">[E·01]</span>
-      <span class="term-process__name">thesis sprint</span>
-      <span class="term-process__time">2&ndash;3 wks · fixed</span>
-      <span class="term-process__body">an engineer + strategist embed. one written thesis, three sequenced bets, kill-criteria. a yes/no on whether AI even belongs.</span>
+  <!-- AGENTS -->
+  <div class="surface-row surface-row--flip">
+    <div class="surface-row__media">
+      <div class="surface-row__media-inner">
+        <span class="surface-row__chip">⌁ AGENT RUN · 04 STEPS</span>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">STEP 01 · READ</div>
+          <div class="surface-row__mockup-line">FNOL #4421 · motor · photos × 6</div>
+        </div>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">STEP 02 · TOOL</div>
+          <div class="surface-row__mockup-line">→ <code>vision.damage(img_1..6)</code></div>
+        </div>
+        <div class="surface-row__mockup" style="border-color:var(--accent);">
+          <div class="surface-row__mockup-label" style="color:var(--accent-ink);">STEP 03 · FLAG</div>
+          <div class="surface-row__mockup-line"><span class="mk-dot"></span>Fraud signal · review</div>
+        </div>
+      </div>
     </div>
-    <div class="term-process__row">
-      <span class="term-process__n">[E·02]</span>
-      <span class="term-process__name">production build</span>
-      <span class="term-process__time">8&ndash;12 wks · outcome</span>
-      <span class="term-process__body">one workflow, end-to-end, into a real surface. reference architecture + agents + evaluation. on-call hand-off to your team.</span>
+    <div class="surface-row__body">
+      <span class="surface-row__num">Surface 02</span>
+      <h3 class="surface-row__title">Multi-tool agents, <em>inside the surface you already have.</em></h3>
+      <p class="surface-row__dek">No new SaaS to log into. Agents that live inside your CRM, ticketing tool, editor or back-office — and pass the same audit your team does.</p>
+      <ul class="surface-row__list">
+        <li>Multi-step planning · tool-use · explicit guardrails</li>
+        <li>Per-action audit trail · replayable for review</li>
+        <li>Eval harness · override-rate tracking · drift alerts</li>
+      </ul>
+      <div class="surface-row__stack">
+        <span>LangGraph</span><span>MCP</span><span>Temporal</span><span>Langfuse</span><span>OpenTelemetry</span>
+      </div>
     </div>
-    <div class="term-process__row">
-      <span class="term-process__n">[E·03]</span>
-      <span class="term-process__name">operating partner</span>
-      <span class="term-process__time">6&ndash;24 mo · retained</span>
-      <span class="term-process__body">shared roadmap across surfaces. quarterly value review against the thesis. on-call coverage, change control, talent uplift.</span>
+  </div>
+
+  <!-- RAG -->
+  <div class="surface-row">
+    <div class="surface-row__media">
+      <div class="surface-row__media-inner">
+        <span class="surface-row__chip">⌁ RETRIEVAL · CITED</span>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">QUERY</div>
+          <div class="surface-row__mockup-line">&ldquo;Suitability for retired client, equity 60%?&rdquo;</div>
+        </div>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">SOURCES · 3</div>
+          <div class="surface-row__mockup-line"><code>regulator/A-22.pdf · p. 14</code></div>
+          <div class="surface-row__mockup-line"><code>house-view/q1-2026 · §3</code></div>
+          <div class="surface-row__mockup-line"><code>kyc/portfolio · 2024-11</code></div>
+        </div>
+      </div>
+    </div>
+    <div class="surface-row__body">
+      <span class="surface-row__num">Surface 03</span>
+      <h3 class="surface-row__title">Retrieval that cites, <em>not retrieval that guesses.</em></h3>
+      <p class="surface-row__dek">Permissioned RAG with row-level access, freshness windows and citation guarantees. Built for regulator filings, clinical guidelines, internal wikis and legal corpora.</p>
+      <ul class="surface-row__list">
+        <li>Hybrid retrieval · BM25 + vector + rerank</li>
+        <li>Row-level permissions · per-user scopes</li>
+        <li>Citation-locked generation · no claim without source</li>
+      </ul>
+      <div class="surface-row__stack">
+        <span>pgvector</span><span>Qdrant</span><span>BM25</span><span>Cohere rerank</span><span>RAGAS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COPILOTS -->
+  <div class="surface-row surface-row--flip">
+    <div class="surface-row__media">
+      <div class="surface-row__media-inner">
+        <span class="surface-row__chip">⌁ EDITOR COCKPIT</span>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">DRAFT · v3 · ⌘S</div>
+          <div class="surface-row__mockup-line">India unemployment fell to 6.1% in Q1…</div>
+        </div>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">⌃J SUGGEST</div>
+          <div class="surface-row__mockup-line">→ Add citation: <code>cmie/q1-26</code></div>
+        </div>
+        <div class="surface-row__mockup">
+          <div class="surface-row__mockup-label">⌃E EDIT · house-style 94%</div>
+          <div class="surface-row__mockup-line"><span class="mk-dot"></span>Trim adverbs · 3 found</div>
+        </div>
+      </div>
+    </div>
+    <div class="surface-row__body">
+      <span class="surface-row__num">Surface 04</span>
+      <h3 class="surface-row__title">Internal copilots <em>for the team that owns the workflow.</em></h3>
+      <p class="surface-row__dek">Editor cockpits, advisor copilots, ops control rooms, adjuster consoles. Keyboard-first, override-aware, designed alongside the operators who will live in them.</p>
+      <ul class="surface-row__list">
+        <li>Operator-first UX · keyboard-shortcut native</li>
+        <li>Override logging &amp; review baked in</li>
+        <li>SSO · audit · RBAC · enterprise-ready from day one</li>
+      </ul>
+      <div class="surface-row__stack">
+        <span>Next.js</span><span>React</span><span>Server actions</span><span>Tailwind</span><span>Postgres</span>
+      </div>
     </div>
   </div>
 </section>
 
-<hr class="term-rule"/>
+<!-- ============== ENGAGEMENT TIER TABLE ============== -->
+<section class="container section">
+  <div class="section-head">
+    <span class="section-head__pill">How we engage</span>
+    <h2 class="h-section section-head__title">Three engagement modes. <em>Pick the smallest one that ships.</em></h2>
+    <p class="lede section-head__lede">Every engagement ends with something running, owned by a named human on your side. No open-ended retainers without a build.</p>
+  </div>
 
-<section class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--match-my-workflow</span></div>
-  <div class="term-subprompt"><span class="term-status__arrow">►</span> describe your workflow on the home page · we&rsquo;ll match a surface in 60 seconds</div>
-  <div class="term-cta-row">
-    <a href="index.html#agent" class="term-cta-btn">[ open plan_builder ↵ ]</a>
-    <a href="mailto:hello@chittanshai.com" class="term-cta-btn term-cta-btn--ghost">[ email instead ]</a>
+  <div class="tier-table">
+    <div class="tier-row tier-row--head">
+      <div class="tier-row__cell"></div>
+      <div class="tier-row__cell">
+        <span class="tier-head__name">Thesis Sprint</span>
+        <span class="tier-head__time">2–3 weeks</span>
+        <span class="tier-head__price">Fixed scope</span>
+      </div>
+      <div class="tier-row__cell">
+        <span class="tier-head__name">Production Build</span>
+        <span class="tier-head__time">8–12 weeks</span>
+        <span class="tier-head__price">Outcome-linked</span>
+      </div>
+      <div class="tier-row__cell">
+        <span class="tier-head__name">Operating Partner</span>
+        <span class="tier-head__time">6–24 months</span>
+        <span class="tier-head__price">Retained</span>
+      </div>
+    </div>
+
+    <div class="tier-row">
+      <div class="tier-row__cell"><span class="tier-row__label">Embedded team</span></div>
+      <div class="tier-row__cell check">Engineer + strategist</div>
+      <div class="tier-row__cell check">Engineer + strategist + designer</div>
+      <div class="tier-row__cell check">Cross-functional pod</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-row__cell"><span class="tier-row__label">Output</span></div>
+      <div class="tier-row__cell check">Written thesis · 3 bets · kill-criteria</div>
+      <div class="tier-row__cell check">Live system · hand-off · runbooks</div>
+      <div class="tier-row__cell check">Roadmap · multiple systems · platform</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-row__cell"><span class="tier-row__label">Real surface in prod</span></div>
+      <div class="tier-row__cell dash">Not the goal</div>
+      <div class="tier-row__cell check">Yes · before week 12</div>
+      <div class="tier-row__cell check">Yes · multiple surfaces</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-row__cell"><span class="tier-row__label">On-call coverage</span></div>
+      <div class="tier-row__cell dash">—</div>
+      <div class="tier-row__cell check">8 weeks post-launch</div>
+      <div class="tier-row__cell check">Continuous · change control</div>
+    </div>
+    <div class="tier-row tier-row--feat">
+      <div class="tier-row__cell"><span class="tier-row__label">Quarterly value review</span></div>
+      <div class="tier-row__cell dash">—</div>
+      <div class="tier-row__cell dash">—</div>
+      <div class="tier-row__cell check">Yes · against original thesis</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-row__cell"><span class="tier-row__label">Typical price band</span></div>
+      <div class="tier-row__cell">$40–80k</div>
+      <div class="tier-row__cell">$200–500k</div>
+      <div class="tier-row__cell">$600k+/yr</div>
+    </div>
   </div>
 </section>
 
-<hr class="term-rule"/>
+<!-- STAT STRIP -->
+<section class="stat-strip">
+  <div class="container stat-strip__inner">
+    <div class="stat-cell"><span class="stat-cell__num">27</span><span class="stat-cell__label">Production systems live since 2024</span></div>
+    <div class="stat-cell"><span class="stat-cell__num">6.4<em>wks</em></span><span class="stat-cell__label">Median time from thesis to live surface</span></div>
+    <div class="stat-cell"><span class="stat-cell__num">99.94<em>%</em></span><span class="stat-cell__label">SLA across live deployments, rolling 90d</span></div>
+    <div class="stat-cell"><span class="stat-cell__num">64<em>%</em></span><span class="stat-cell__label">Of leads declined — we say so on call one</span></div>
+  </div>
+</section>
 
-<section id="contact" class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--contact</span></div>
-  <div class="term-contact">
-    <div class="term-contact__row">
-      <span class="term-contact__k">&gt; email</span>
-      <a href="mailto:hello@chittanshai.com" class="term-contact__v">hello@chittanshai.com</a>
-      <span class="term-contact__meta">reply within 6h, weekdays</span>
-    </div>
-    <div class="term-contact__row">
-      <span class="term-contact__k">&gt; call</span>
-      <a href="#" class="term-contact__v">calendly /chittansh-intro</a>
-      <span class="term-contact__meta">30 mins, no decks</span>
-    </div>
-    <div class="term-contact__row">
-      <span class="term-contact__k">&gt; office</span>
-      <span class="term-contact__v">gurgaon &middot; bengaluru</span>
-      <span class="term-contact__meta">by appointment</span>
+<!-- CTA -->
+<section class="container final-cta" id="contact">
+  <div class="final-cta__card">
+    <h2 class="h-section final-cta__title">Don&rsquo;t pick a surface. <em>Describe a workflow.</em></h2>
+    <div class="final-cta__right">
+      <p>Our agent builder matches your workflow to the right surface, recommends a demo, and drafts an 8-week plan in 60 seconds.</p>
+      <div class="final-cta__buttons">
+        <a href="agent.html" class="btn btn-solid">Try our agent builder</a>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-outline">Email us</a>
+      </div>
     </div>
   </div>
 </section>
 
-</main>
-
-<footer class="term-footer">
-  <div class="term-footer__inner">
-    <span>chittansh.ai/v2.0</span>
-    <span>&copy; 2026 chittansh ai solutions pvt ltd</span>
-    <span>ship the thing, not the deck</span>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2 class="footer-tag">AI you can put into operations.</h2>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-ghost btn-sm">hello@chittanshai.com</a>
+      </div>
+      <div class="footer-col"><h4>Work</h4>
+        <ul><li><a href="demos.html">Demos</a></li><li><a href="services.html">Services</a></li><li><a href="case-studies.html">Case studies</a></li><li><a href="research.html">Research</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Company</h4>
+        <ul><li><a href="why-us.html">Why us</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:careers@chittanshai.com">Careers</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Office</h4>
+        <ul><li>Gurgaon · Bengaluru</li><li>Mon — Fri</li><li>By appointment</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Chittansh AI Solutions Pvt Ltd</span><span>v3.0 · ship the thing</span></div>
   </div>
 </footer>
 
 <script>
   (function(){
-    const num=document.getElementById('scroll-meter-num'),fill=document.getElementById('scroll-meter-fill');
-    if(!num||!fill)return; let raf=0;
-    const update=()=>{const max=(document.documentElement.scrollHeight-window.innerHeight)||1;const p=Math.min(100,Math.max(0,Math.round((window.scrollY/max)*100)));num.textContent=p;fill.style.transform='scaleX('+(p/100)+')';raf=0;};
-    update();window.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
-    window.addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(update);});
+    const h = document.getElementById('hamburger'), header = document.getElementById('site-header');
+    if (!h || !header) return;
+    h.addEventListener('click', () => header.classList.toggle('is-menu-open'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('is-menu-open')));
+  })();
+  (function(){
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    document.querySelectorAll('.stat-cell__num').forEach(el => {
+      const txt = el.firstChild; if (!txt || txt.nodeType !== 3) return;
+      const raw = txt.nodeValue.trim();
+      const m = raw.match(/^(\$?)(\d+(?:\.\d+)?)(.*)$/); if (!m) return;
+      const prefix = m[1], target = parseFloat(m[2]), suffix = m[3] || '', dec = (m[2].split('.')[1] || '').length;
+      const fmt = n => prefix + (dec ? n.toFixed(dec) : Math.round(n).toString()) + suffix;
+      txt.nodeValue = fmt(0);
+      const io = new IntersectionObserver(([en]) => {
+        if (en.isIntersecting) {
+          const start = performance.now();
+          const tick = (t) => { const p = Math.min(1, (t - start) / 1400); txt.nodeValue = fmt(target * ease(p)); if (p < 1) requestAnimationFrame(tick); };
+          requestAnimationFrame(tick); io.unobserve(en.target);
+        }
+      }, { threshold: 0.4 });
+      io.observe(el);
+    });
   })();
 </script>
 </body>

@@ -21,7 +21,7 @@ const SAMPLE: ResultState = {
   approach:
     'Streaming voice on your existing telephony. Tool-use over your OMS so refunds and exchanges close on the call, not in a follow-up queue. Sub-1.4s latency budget end-to-end.',
   demo: {
-    name: 'echo-returns.case',
+    name: 'Echo Returns',
     why: 'Same shape as your stack — sub-1.4s latency, OMS-backed actions, clean escalation when policy gets ambiguous.',
   },
   sprint: [
@@ -36,28 +36,28 @@ const SAMPLE: ResultState = {
   ],
   question:
     'Which call reasons would make you uncomfortable letting an agent close end-to-end — and why?',
-  label: 'sample run · an example workflow plan',
+  label: '02 · Sample plan · drafted live for an example workflow',
 };
 
 const CHIPS = [
   {
-    label: '> voice/returns',
+    label: 'Voice for returns',
     text: 'We get 4,000 inbound support calls a month for returns and exchanges on our DTC store. Want to contain 30%+ end-to-end with voice.',
   },
   {
-    label: '> advisor/copilot',
+    label: 'Advisor copilot',
     text: 'Our advisors spend 2 hours per client writing suitability rationales. We want a copilot that drafts the memo with citations, compliance-ready.',
   },
   {
-    label: '> internal/rag',
+    label: 'Internal RAG',
     text: "Internal teams need to search across our 14k regulator filings, contracts and internal wiki. Today it's grep + tribal knowledge. Want a RAG copilot they actually trust.",
   },
   {
-    label: '> claims/triage',
+    label: 'Claims triage',
     text: 'Our claims adjusters handle motor + health FNOLs. We want an agent that triages, flags fraud signals, and gives them one screen to act on.',
   },
   {
-    label: '> editorial/drafting',
+    label: 'Editorial drafting',
     text: 'Editorial desk wants to turn wire stories into in-house briefs at deadline pace. Voice-locked, every fact cited back to source.',
   },
 ];
@@ -75,7 +75,6 @@ export default function PlanBuilder() {
   const [result, setResult] = useState<ResultState>(SAMPLE);
   const [stepIndex, setStepIndex] = useState(0);
   const [fresh, setFresh] = useState(false);
-  const [expanded, setExpanded] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -85,9 +84,7 @@ export default function PlanBuilder() {
     const id = window.setInterval(() => {
       i += 1;
       setStepIndex(i);
-      if (i >= 3) {
-        window.clearInterval(id);
-      }
+      if (i >= 3) window.clearInterval(id);
     }, 1200);
     return () => window.clearInterval(id);
   }, []);
@@ -109,22 +106,18 @@ export default function PlanBuilder() {
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ input: text }),
         });
-
         if (!res.ok) throw new Error(`status ${res.status}`);
         const data = (await res.json()) as Plan;
         if (!data?.summary || !data?.demo?.name) throw new Error('missing fields');
 
-        // Brief settle so the steps animation finishes a beat
         await new Promise((r) => setTimeout(r, 700));
-
         stopSteps();
         setLoading(false);
         setResult({
           ...data,
-          label: 'your run · drafted in the last 30 seconds',
+          label: '02 · Your plan · drafted in the last 30 seconds',
         });
         setFresh(false);
-        // re-trigger fresh animation
         window.requestAnimationFrame(() => setFresh(true));
       } catch (err) {
         console.error('agent error', err);
@@ -160,45 +153,76 @@ export default function PlanBuilder() {
   }, []);
 
   return (
-    <section
-      className="agent agent--term"
-      id="agent"
-      aria-label="Plan Builder"
-      data-expanded={expanded ? '1' : '0'}
-    >
-      <div className="agent__split">
-        {/* INPUT COLUMN */}
-        <div className="agent__input-col">
-          <div className="agent-term__head">
-            <span className="agent-term__step">01</span>
-            <span className="agent-term__step-t">input</span>
-            <span className="agent-term__step-meta">type, talk, or send video</span>
+    <section className="plan-card" id="agent" aria-label="Plan Builder">
+
+      <header className="plan-card__bar">
+        <div className="plan-card__bar-l">
+          <img className="plan-card__avatar" src="/logo.png" alt="" />
+          <div className="plan-card__title-wrap">
+            <h2 className="plan-card__title">Plan Builder</h2>
+            <span className="plan-card__sub">Match your workflow to a shipped demo · ~25s</span>
+          </div>
+        </div>
+        <div></div>
+        <div className="plan-card__stats">
+          <div className="plan-card__stat"><b>6</b><em>demos</em></div>
+          <div className="plan-card__stat"><b>27</b><em>shipped</em></div>
+        </div>
+      </header>
+
+      <div className="plan-card__split">
+
+        {/* INPUT */}
+        <div className="plan-card__input">
+          <div className="plan-step">
+            <span className="dot"></span>
+            <span>01 · Describe your workflow</span>
           </div>
 
-          <div className="agent-term__tabs" role="tablist" aria-label="Input mode">
+          <div className="plan-tabs" role="tablist" aria-label="Input mode">
             {(['text', 'voice', 'video'] as Mode[]).map((m) => (
               <button
                 key={m}
                 type="button"
-                className={`agent-term__tab${mode === m ? ' is-active' : ''}`}
+                className={`plan-tab${mode === m ? ' is-active' : ''}`}
                 data-mode={m}
                 role="tab"
                 aria-selected={mode === m}
                 onClick={() => setMode(m)}
               >
-                [ {m} ]
+                {m === 'text' && (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="4 7 4 4 20 4 20 7" />
+                    <line x1="9" y1="20" x2="15" y2="20" />
+                    <line x1="12" y1="4" x2="12" y2="20" />
+                  </svg>
+                )}
+                {m === 'voice' && (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="9" y="3" width="6" height="12" rx="3" />
+                    <path d="M5 11a7 7 0 0 0 14 0" />
+                    <line x1="12" y1="18" x2="12" y2="22" />
+                  </svg>
+                )}
+                {m === 'video' && (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="6" width="14" height="12" rx="2" />
+                    <polygon points="16 10 22 6 22 18 16 14" />
+                  </svg>
+                )}
+                {m.charAt(0).toUpperCase() + m.slice(1)}
               </button>
             ))}
           </div>
 
-          {/* TEXT mode */}
-          <div className={`agent-term__mode${mode === 'text' ? ' is-active' : ''}`} data-pane="text">
-            <div className="agent__chips" role="group" aria-label="Quick starts">
+          {/* TEXT */}
+          <div className={`plan-mode${mode === 'text' ? ' is-active' : ''}`} data-pane="text">
+            <div className="plan-chips" role="group" aria-label="Quick starts">
               {CHIPS.map((c) => (
                 <button
                   key={c.label}
                   type="button"
-                  className="agent__chip"
+                  className="plan-chip"
                   data-prefill={c.text}
                   onClick={() => {
                     setInput(c.text);
@@ -209,142 +233,116 @@ export default function PlanBuilder() {
                 </button>
               ))}
             </div>
-
-            <form className="agent__form" id="agent-form" onSubmit={handleTextSubmit}>
-              <label className="visually-hidden" htmlFor="agent-input">
-                Describe your workflow
-              </label>
-              <div className="agent-term__input-wrap">
-                <span className="agent-term__caret">&gt;</span>
-                <textarea
-                  ref={textareaRef}
-                  id="agent-input"
-                  className="agent__textarea"
-                  rows={6}
-                  placeholder="industry · team · current pain · one paragraph is enough"
-                  maxLength={900}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleTextSubmit(e as unknown as React.FormEvent);
-                    }
-                  }}
-                />
-              </div>
-              <div className="agent__form-foot">
-                <span className="agent__hint">⌅ to run · never stored</span>
-                <button type="submit" className="agent__submit" id="agent-submit">
-                  <span>[ run ↵ ]</span>
-                </button>
-              </div>
+            <form className="plan-textarea-wrap" id="agent-form" onSubmit={handleTextSubmit}>
+              <label className="visually-hidden" htmlFor="agent-input">Describe your workflow</label>
+              <textarea
+                ref={textareaRef}
+                id="agent-input"
+                className="plan-textarea"
+                rows={6}
+                placeholder="Industry · team · current pain. One paragraph is enough — the more concrete, the sharper the plan."
+                maxLength={900}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleTextSubmit(e as unknown as React.FormEvent);
+                  }
+                }}
+              />
             </form>
+            <div className="plan-foot">
+              <span className="plan-hint">⏎ to run · never stored</span>
+              <button type="button" className="plan-submit" id="agent-submit" onClick={() => handleTextSubmit({ preventDefault() {} } as React.FormEvent)}>
+                Draft my plan <span className="arr">→</span>
+              </button>
+            </div>
           </div>
 
-          {/* VOICE mode */}
           <VoicePane active={mode === 'voice'} runAgent={runAgent} />
-
-          {/* VIDEO mode */}
           <VideoPane active={mode === 'video'} runAgent={runAgent} />
         </div>
 
-        {/* RESULT COLUMN */}
-        <div className="agent__result-col" id="agent-result-col">
-          <div className="agent-term__head">
-            <span className="agent-term__step alt">02</span>
-            <span className="agent-term__step-t">output</span>
-            <span className="agent-term__step-meta" id="agent-state-label">
-              {result.label}
-            </span>
+        {/* RESULT */}
+        <div className="plan-card__result" id="agent-result-col">
+          <div className="plan-step">
+            <span className="dot dot--alt"></span>
+            <span id="agent-state-label">{result.label}</span>
           </div>
 
-          <div className={`agent__result${fresh ? ' is-fresh' : ''}`} id="agent-result">
-            <div className="agent-term__section">
-              <span className="agent-term__label">// summary</span>
-              <p className="agent__summary" id="r-summary">{result.summary}</p>
+          <div className={`plan-result${fresh ? ' is-fresh' : ''}`} id="agent-result">
+            <div className="plan-result__row">
+              <span className="plan-result__label">Summary</span>
+              <p className="plan-result__summary" id="r-summary">{result.summary}</p>
+            </div>
+            <div className="plan-result__row">
+              <span className="plan-result__label">How we&rsquo;d approach it</span>
+              <p className="plan-result__approach" id="r-approach">{result.approach}</p>
             </div>
 
-            <div className="agent-term__section">
-              <span className="agent-term__label">// approach</span>
-              <p id="r-approach">{result.approach}</p>
-            </div>
-
-            <div className="agent__demo-card" id="r-demo">
-              <div className="agent__demo-head">
-                <span className="agent-term__label">// closest_demo</span>
-                <span className="agent__demo-badge">[ LIVE ]</span>
+            <div className="plan-demo-card">
+              <div className="plan-demo-card__head">
+                <span className="plan-result__label">Closest demo · start here</span>
+                <span className="plan-demo-card__badge">LIVE</span>
               </div>
-              <h4 className="agent__demo-name" id="r-demo-name">{result.demo.name}</h4>
-              <p className="agent__demo-why" id="r-demo-why">{result.demo.why}</p>
+              <h4 className="plan-demo-card__name" id="r-demo-name">{result.demo.name}</h4>
+              <p className="plan-demo-card__why" id="r-demo-why">{result.demo.why}</p>
             </div>
 
-            <div className="agent__phases">
-              <div className="agent__phase">
-                <span className="agent-term__label">// wk 1–3 · thesis</span>
+            <div className="plan-phases">
+              <div className="plan-phase">
+                <span className="plan-result__label">Wk 1–3 · Thesis</span>
                 <ul id="r-sprint">
-                  {result.sprint.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
+                  {result.sprint.map((s, i) => <li key={i}>{s}</li>)}
                 </ul>
               </div>
-              <div className="agent__phase">
-                <span className="agent-term__label">// wk 4–12 · build</span>
+              <div className="plan-phase">
+                <span className="plan-result__label">Wk 4–12 · Build</span>
                 <ul id="r-build">
-                  {result.build.map((s, i) => (
-                    <li key={i}>{s}</li>
-                  ))}
+                  {result.build.map((s, i) => <li key={i}>{s}</li>)}
                 </ul>
               </div>
             </div>
 
-            <div className="agent__question">
-              <span className="agent-term__label">// next_call_question</span>
+            <div className="plan-question">
+              <span className="plan-result__label">What we&rsquo;d ask on the call</span>
               <p id="r-question">{result.question}</p>
             </div>
 
-            <div className="agent__cta">
+            <div className="plan-cta">
               <a
                 href="mailto:hello@chittanshai.com?subject=Demo%20plan%20followup"
-                className="term-cta-btn agent__book"
+                className="plan-cta__btn"
               >
-                [ book a 30-min call ↵ ]
+                Book a 30-min call <span className="arr">→</span>
               </a>
-              <button type="button" className="agent__restart" onClick={handleRestart}>
-                ← reset
-              </button>
-              <button
-                type="button"
-                className="agent__expand-mobile"
-                id="agent-expand-mobile"
-                onClick={() => setExpanded((v) => !v)}
-              >
-                {expanded ? '[ − collapse ]' : '[ + see full plan ]'}
+              <button type="button" className="plan-restart" onClick={handleRestart}>
+                ← Reset to sample
               </button>
             </div>
           </div>
 
-          {/* Loading overlay */}
-          <div className={`agent__loading-overlay${loading ? ' is-on' : ''}`} id="agent-loading">
-            <div className="agent__loading-card">
-              <div className="agent__loading-title">&gt; drafting your plan</div>
-              <div className="agent__steps">
+          <div className={`plan-overlay${loading ? ' is-on' : ''}`} id="agent-loading">
+            <div className="plan-loading-card">
+              <div className="plan-loading-title">Drafting your plan</div>
+              <div className="plan-steps">
                 {[
-                  { i: 1, t: 'reading input' },
-                  { i: 2, t: 'searching demo catalogue' },
-                  { i: 3, t: 'composing plan' },
+                  { i: 1, t: 'Reading input' },
+                  { i: 2, t: 'Searching demo catalogue' },
+                  { i: 3, t: 'Composing plan' },
                 ].map((s) => {
                   const isActive = stepIndex === s.i - 1 || (stepIndex >= 3 && s.i === 3);
                   const isDone = stepIndex > s.i - 1 && !(stepIndex >= 3 && s.i === 3);
                   return (
                     <div
                       key={s.i}
-                      className={`agent__step${isActive ? ' is-active' : ''}${isDone ? ' is-done' : ''}`}
+                      className={`plan-step-row${isActive ? ' is-active' : ''}${isDone ? ' is-done' : ''}`}
                       data-step={s.i}
                     >
-                      <span className="agent__step-i">0{s.i}</span>
-                      <span className="agent__step-t">{s.t}</span>
-                      <span className="agent__step-mark"></span>
+                      <span className="plan-step-row__i">0{s.i}</span>
+                      <span>{s.t}</span>
+                      <span className="plan-step-row__mark"></span>
                     </div>
                   );
                 })}
@@ -352,15 +350,16 @@ export default function PlanBuilder() {
             </div>
           </div>
 
-          {/* Error overlay */}
-          <div className={`agent__error-overlay${error ? ' is-on' : ''}`} id="agent-error">
-            <p>
-              &gt; error: model unavailable. mail us at{' '}
-              <a href="mailto:hello@chittanshai.com">hello@chittanshai.com</a> — we'll draft your plan by hand.
-            </p>
-            <button type="button" className="agent__restart" onClick={handleRestart}>
-              ← retry
-            </button>
+          <div className={`plan-overlay${error ? ' is-on' : ''}`} id="agent-error">
+            <div className="plan-loading-card plan-error">
+              <p>
+                Something went sideways. The frontier is unstable today — email{' '}
+                <a href="mailto:hello@chittanshai.com">hello@chittanshai.com</a> and we&rsquo;ll draft your plan by hand.
+              </p>
+              <button type="button" className="plan-restart" onClick={handleRestart}>
+                ← Try again
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -378,10 +377,10 @@ function VoicePane({
   runAgent: (text: string, shake: () => void) => void;
 }) {
   const [recording, setRecording] = useState(false);
-  const [statusText, setStatusText] = useState('tap to record · ~30s');
+  const [statusText, setStatusText] = useState('Tap to record · ~30s');
   const [timeText, setTimeText] = useState('0:00');
   const [transcript, setTranscript] = useState('');
-  const [hint, setHint] = useState("uses your browser's speech recognition");
+  const [hint, setHint] = useState("Uses your browser's speech recognition");
   const [supported, setSupported] = useState(true);
 
   const barsRef = useRef<HTMLDivElement | null>(null);
@@ -403,11 +402,10 @@ function VoicePane({
       null;
     if (!SR) {
       setSupported(false);
-      setHint('speech recognition not supported here · type instead');
+      setHint('Speech recognition not supported here — type instead');
     }
   }, []);
 
-  // build the 16 bars once
   useEffect(() => {
     const w = barsRef.current;
     if (!w || w.childElementCount > 0) return;
@@ -451,9 +449,7 @@ function VoicePane({
         rafRef.current = requestAnimationFrame(loop);
       };
       loop();
-    } catch {
-      /* ignore — visualizer optional */
-    }
+    } catch {}
   }, []);
 
   const renderText = useCallback(() => {
@@ -470,7 +466,7 @@ function VoicePane({
     }
     if (timerRef.current) window.clearInterval(timerRef.current);
     timerRef.current = 0;
-    setStatusText(finalTextRef.current ? '> stopped · review or run' : 'tap to record · ~30s');
+    setStatusText(finalTextRef.current ? 'Stopped · review or run' : 'Tap to record · ~30s');
     stopVisualizer();
   }, [stopVisualizer]);
 
@@ -499,19 +495,17 @@ function VoicePane({
       renderText();
     };
     rec.onerror = (e: any) => {
-      setStatusText('> error: ' + (e.error || 'mic'));
+      setStatusText('Error: ' + (e.error || 'mic'));
       stop();
     };
     rec.onend = () => {
-      if (recogRef.current) {
-        try { rec.start(); } catch {}
-      }
+      if (recogRef.current) { try { rec.start(); } catch {} }
     };
     try { rec.start(); } catch {}
     recogRef.current = rec;
 
     setRecording(true);
-    setStatusText('> listening · tap to stop');
+    setStatusText('Listening · tap to stop');
     startedAtRef.current = performance.now();
     timerRef.current = window.setInterval(() => {
       setTimeText(fmtTime((performance.now() - startedAtRef.current) / 1000));
@@ -530,7 +524,7 @@ function VoicePane({
   }, [runAgent, transcript]);
 
   return (
-    <div className={`agent-term__mode${active ? ' is-active' : ''}`} data-pane="voice">
+    <div className={`plan-mode${active ? ' is-active' : ''}`} data-pane="voice">
       <div className="voice-pad">
         <button
           type="button"
@@ -541,7 +535,7 @@ function VoicePane({
           onClick={() => (recording ? stop() : start())}
         >
           <span className="voice-mic__ring"></span>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <rect x="9" y="3" width="6" height="12" rx="3" />
             <path d="M5 11a7 7 0 0 0 14 0" />
             <line x1="12" y1="18" x2="12" y2="22" />
@@ -554,22 +548,22 @@ function VoicePane({
         <div className="voice-bars" id="voice-bars" aria-hidden="true" ref={barsRef}></div>
       </div>
       <div className="voice-transcript">
-        <span className="agent-term__label">// transcript</span>
+        <span className="voice-transcript-label">Transcript</span>
         <div
           ref={trOutRef}
           id="voice-transcript-out"
-          className="voice-transcript__out"
+          className="voice-transcript-out"
           contentEditable
           suppressContentEditableWarning
-          data-placeholder="transcript will appear here · editable before submit"
+          data-placeholder="Your transcript will appear here — editable before you submit."
         >
           {transcript}
         </div>
       </div>
-      <div className="agent__form-foot">
-        <span className="agent__hint" id="voice-hint">{hint}</span>
-        <button type="button" className="agent__submit" id="voice-submit" onClick={handleSubmit}>
-          <span>[ run ↵ ]</span>
+      <div className="plan-foot">
+        <span className="plan-hint" id="voice-hint">{hint}</span>
+        <button type="button" className="plan-submit" id="voice-submit" onClick={handleSubmit}>
+          Draft my plan <span className="arr">→</span>
         </button>
       </div>
     </div>
@@ -585,11 +579,11 @@ function VideoPane({
   active: boolean;
   runAgent: (text: string, shake: () => void) => void;
 }) {
-  const [status, setStatus] = useState('camera off');
+  const [status, setStatus] = useState('Camera off');
   const [timeText, setTimeText] = useState('0:00');
   const [recBadge, setRecBadge] = useState(false);
   const [overlayHidden, setOverlayHidden] = useState(false);
-  const [recordBtnLabel, setRecordBtnLabel] = useState('● record');
+  const [recordBtnLabel, setRecordBtnLabel] = useState('● Record');
   const [recordBtnDisabled, setRecordBtnDisabled] = useState(true);
   const [stopBtnDisabled, setStopBtnDisabled] = useState(true);
   const [resetBtnDisabled, setResetBtnDisabled] = useState(true);
@@ -614,10 +608,10 @@ function VideoPane({
         previewRef.current.srcObject = streamRef.current;
       }
       setOverlayHidden(true);
-      setStatus('> camera on · tap record');
+      setStatus('Camera on · tap record');
       setRecordBtnDisabled(false);
     } catch {
-      setStatus('> permission denied');
+      setStatus('Permission denied');
     }
   }, []);
 
@@ -630,15 +624,13 @@ function VideoPane({
     } catch {
       mr = new MediaRecorder(streamRef.current);
     }
-    mr.ondataavailable = (ev) => {
-      if (ev.data && ev.data.size > 0) chunksRef.current.push(ev.data);
-    };
+    mr.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) chunksRef.current.push(ev.data); };
     mr.onstop = () => {
       blobRef.current = new Blob(chunksRef.current, { type: 'video/webm' });
-      setStatus(`> recorded · ${fmtTime((performance.now() - startedAtRef.current) / 1000)} · attached`);
+      setStatus(`Recorded · ${fmtTime((performance.now() - startedAtRef.current) / 1000)} · attached`);
       setStopBtnDisabled(true);
       setRecordBtnDisabled(false);
-      setRecordBtnLabel('● re-record');
+      setRecordBtnLabel('● Re-record');
       setResetBtnDisabled(false);
       setSubmitBtnDisabled(false);
       setRecBadge(false);
@@ -656,7 +648,7 @@ function VideoPane({
     timerRef.current = window.setInterval(() => {
       setTimeText(fmtTime((performance.now() - startedAtRef.current) / 1000));
     }, 250);
-    setStatus('> recording');
+    setStatus('Recording');
     setRecBadge(true);
     setRecordBtnDisabled(true);
     setStopBtnDisabled(false);
@@ -681,12 +673,12 @@ function VideoPane({
       previewRef.current.play().catch(() => {});
     }
     setTimeText('0:00');
-    setRecordBtnLabel('● record');
+    setRecordBtnLabel('● Record');
     setRecordBtnDisabled(!streamRef.current);
     setStopBtnDisabled(true);
     setResetBtnDisabled(true);
     setSubmitBtnDisabled(true);
-    setStatus(streamRef.current ? '> camera on · tap record' : 'camera off');
+    setStatus(streamRef.current ? 'Camera on · tap record' : 'Camera off');
   }, []);
 
   const handleSubmit = useCallback(() => {
@@ -697,7 +689,6 @@ function VideoPane({
     runAgent(text, () => {});
   }, [note, runAgent]);
 
-  // cleanup on unmount
   useEffect(() => {
     return () => {
       if (streamRef.current) streamRef.current.getTracks().forEach((t) => t.stop());
@@ -706,7 +697,7 @@ function VideoPane({
   }, []);
 
   return (
-    <div className={`agent-term__mode${active ? ' is-active' : ''}`} data-pane="video">
+    <div className={`plan-mode${active ? ' is-active' : ''}`} data-pane="video">
       <div className="video-pad">
         <video
           ref={previewRef}
@@ -717,10 +708,10 @@ function VideoPane({
           playsInline
         />
         <div className={`video-overlay${overlayHidden ? ' is-hidden' : ''}`} id="video-overlay">
-          <span className="video-cta" id="video-cta" onClick={enable}>
-            [ enable camera ]
-          </span>
-          <span className="video-hint">we'll attach a 30-60s pitch to your inquiry</span>
+          <button className="video-cta" type="button" id="video-cta" onClick={enable}>
+            Enable camera
+          </button>
+          <span className="video-hint">We&rsquo;ll attach a 30–60s pitch to your inquiry</span>
         </div>
         <div className={`video-rec${recBadge ? ' is-on' : ''}`} id="video-rec-indicator">
           <span></span>REC <em id="video-time">{timeText}</em>
@@ -743,7 +734,7 @@ function VideoPane({
           disabled={stopBtnDisabled}
           onClick={stop}
         >
-          ■ stop
+          ■ Stop
         </button>
         <button
           type="button"
@@ -752,32 +743,31 @@ function VideoPane({
           disabled={resetBtnDisabled}
           onClick={reset}
         >
-          ↺ reset
+          ↺ Reset
         </button>
         <span className="video-status" id="video-status">{status}</span>
       </div>
-      <div className="agent-term__input-wrap video-note">
-        <span className="agent-term__caret">&gt;</span>
+      <div className="plan-textarea-wrap video-note">
         <textarea
           id="video-note"
-          className="agent__textarea"
+          className="plan-textarea"
           rows={3}
-          placeholder="optional · one line of context to send with the video"
+          placeholder="Optional — one line of context to send with the video."
           maxLength={400}
           value={note}
           onChange={(e) => setNote(e.target.value)}
         />
       </div>
-      <div className="agent__form-foot">
-        <span className="agent__hint">video stays local until you submit</span>
+      <div className="plan-foot">
+        <span className="plan-hint">Video stays local until you submit</span>
         <button
           type="button"
-          className="agent__submit"
+          className="plan-submit"
           id="video-submit"
           disabled={submitBtnDisabled}
           onClick={handleSubmit}
         >
-          <span>[ run ↵ ]</span>
+          Draft my plan <span className="arr">→</span>
         </button>
       </div>
     </div>

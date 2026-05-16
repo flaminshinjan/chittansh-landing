@@ -49,7 +49,11 @@
       "Bash(curl -sIL -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" --max-time 60 https://chittansh-frontend.fly.dev/)",
       "Bash(curl -sIL -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" --max-time 60 https://chittansh-frontend.fly.dev/studio)",
       "Bash(curl -sIL -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" --max-time 60 https://chittansh-frontend.fly.dev/case-studies)",
-      "Bash(curl -sIL -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" --max-time 60 https://chittansh-frontend.fly.dev/case-studies/echo-returns)"
+      "Bash(curl -sIL -o /dev/null -w \"%{http_code} %{url_effective}\\\\n\" --max-time 60 https://chittansh-frontend.fly.dev/case-studies/echo-returns)",
+      "Bash(curl -s --max-time 60 https://chittansh-frontend.fly.dev/)",
+      "Bash(curl -s --max-time 30 https://chittansh-frontend.fly.dev/styles.css)",
+      "Bash(curl -sI --max-time 30 https://chittansh-frontend.fly.dev/styles.css)",
+      "Bash(grep -n \"\\\\.container[^_-]\\\\|\\\\.container$\\\\|\\\\.container,\" /Users/shinjan/Desktop/chittansh-landing/frontend/public/styles.css)"
     ],
     "additionalDirectories": [
       "/Users/shinjan/Desktop/chittansh-landing/agent/src"

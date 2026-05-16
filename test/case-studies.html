@@ -3,226 +3,251 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>chittansh.ai/cases</title>
+<title>Case Studies — Chittansh AI</title>
+<link rel="icon" type="image/png" href="logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-</head>
-<body class="term" data-screen-label="Case Studies">
+<style>
+.case {
+  background: var(--bg-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 56px);
+  margin-bottom: 24px;
+}
+.case__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--hairline); }
+.case__num { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; color: var(--accent-ink); font-weight: 600; text-transform: uppercase; }
+.case__domain { font-size: 13px; color: var(--ink-mute); }
+.case__badge { font-size: 11px; font-weight: 700; padding: 4px 8px; background: var(--green-soft); color: var(--green-ink); border-radius: 4px; margin-left: auto; }
+.case__title { margin: 4px 0 0; }
+.case__lede { font-family: var(--display); font-weight: 500; font-size: clamp(20px, 2vw, 26px); line-height: 1.35; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 28px; max-width: 50ch; }
+.case__lede em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--accent-ink); }
+.case__body { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+.case__col h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin: 0 0 16px; }
+.case__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.case__col li { font-size: 14.5px; line-height: 1.55; color: var(--ink); padding-left: 22px; position: relative; }
+.case__col.problem li::before { content: "—"; position: absolute; left: 0; color: var(--ink-faint); }
+.case__col.built   li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+@media (max-width: 760px) { .case__body { grid-template-columns: 1fr; } }
 
-<header class="term-header">
-  <div class="term-header__inner">
-    <a href="index.html" class="term-brand">
-      <span class="term-brand__bracket">[</span><span class="term-brand__name">chittansh.ai</span><span class="term-brand__bracket">]</span>
-      <span class="term-brand__path">~/cases</span>
+.case__impact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--hairline); border-radius: var(--radius-md); overflow: hidden; background: var(--bg-elev); margin-bottom: 28px; }
+.case__impact > div { padding: 18px 20px; border-right: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 4px; }
+.case__impact > div:last-child { border-right: 0; }
+.case__impact b { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 3vw, 40px); letter-spacing: -0.03em; color: var(--accent-ink); line-height: 1; }
+.case__impact span { font-size: 12px; color: var(--ink-mute); letter-spacing: 0.02em; }
+@media (max-width: 760px) { .case__impact { grid-template-columns: 1fr 1fr; } .case__impact > div:nth-child(2) { border-right: 0; } }
+
+.case__why { padding: 18px 22px; background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); }
+.case__why p { font-family: var(--display); font-weight: 500; font-size: 16px; line-height: 1.45; color: var(--ink); margin: 0; letter-spacing: -0.005em; }
+.case__why p em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--accent-ink); }
+.case__why h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 6px; }
+</style>
+</head>
+<body data-screen-label="Case Studies">
+
+<header class="site-header" id="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="brand">
+      <img class="brand__mark" src="logo.png" alt="Chittansh AI" />
+      <span>Chittansh AI</span>
     </a>
-    <nav class="term-nav">
-      <a href="index.html#shipping-log">./shipped</a>
-      <a href="services.html">./services</a>
-      <a href="case-studies.html" class="is-active">./cases</a>
-      <a href="about.html">./about</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="services.html">Services</a>
+      <a href="demos.html">Demos</a>
+      <a href="research.html">Research</a>
+      <a href="why-us.html">Why us</a>
     </nav>
-    <a href="#contact" class="term-cta">
-      <span class="term-cta__dot"></span>
-      ./contact <span class="arr">→</span>
-    </a>
-  </div>
-  <div class="scroll-meter" aria-hidden="true">
-    <span class="scroll-meter__num" id="scroll-meter-num">0</span><span class="scroll-meter__pct">%</span>
-    <span class="scroll-meter__bar"><span class="scroll-meter__fill" id="scroll-meter-fill"></span></span>
+    <div class="nav-cta">
+      <a href="agent.html" class="btn btn-solid" data-agent-launch="1">Try our agent builder</a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 
-<main class="term-main">
-
-<section class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> ls <span class="flag">-lat</span> ./cases/</div>
-  <div class="term-subprompt"><span class="term-status__arrow">►</span> three production systems · what we built, how it&rsquo;s wired, what changed</div>
-</section>
-
-<!-- CASE 01 -->
-<section id="case-01" class="term-block term-case">
-  <div class="term-case__head">
-    <span class="term-case__num">[case 01]</span>
-    <span class="term-case__name">briefroom.case</span>
-    <span class="term-case__domain">media &middot; publishing</span>
-    <span class="term-case__badge live">[ LIVE ]</span>
-  </div>
-  <p class="term-case__lede">&gt; ai content platform for a category-leading publisher. research, draft, edit, schedule.</p>
-
-  <div class="term-case__body">
-    <div class="term-case__col">
-      <span class="agent-term__label">// the problem</span>
-      <ul>
-        <li>editorial throughput capped at the speed of senior editors</li>
-        <li>briefs, research, drafts scattered across six tools</li>
-        <li>generic LLM output failed every house-style check</li>
-        <li>no audit trail tying published copy back to source</li>
-      </ul>
-    </div>
-    <div class="term-case__col">
-      <span class="agent-term__label">// what we built</span>
-      <ul>
-        <li>multi-agent pipeline: research → outline → draft → edit</li>
-        <li>house-style fine-tunes, evaluated against gold-standard pieces</li>
-        <li>source-grounded retrieval with inline citation enforcement</li>
-        <li>editor cockpit with diff-view, approvals, audit history</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="term-case__impact">
-    <div><b>4.2&times;</b><span>editorial throughput</span></div>
-    <div><b>−61%</b><span>cost per piece</span></div>
-    <div><b>97%</b><span>house-style pass</span></div>
-    <div><b>100%</b><span>citation coverage</span></div>
-  </div>
-
-  <div class="term-case__why">
-    <span class="agent-term__label">// why it matters</span>
-    <p>&gt; the newsroom didn&rsquo;t get a writing assistant. it got a production system that publishes with the desk, not around it.</p>
+<section class="hero hero--page">
+  <div class="container hero__inner">
+    <span class="pill-kicker hero__pill">CASE STUDIES</span>
+    <h1 class="h-display hero__title">Running systems. <em>Real use.</em></h1>
+    <p class="lede hero__lede">No mock dashboards. Three systems in production — what we built, how it&rsquo;s wired, what changed for the business.</p>
   </div>
 </section>
 
-<hr class="term-rule"/>
+<section class="container section">
+  <!-- CASE 01 -->
+  <article id="case-01" class="case">
+    <header class="case__head">
+      <span class="case__num">Case 01</span>
+      <span class="case__domain">Media · Publishing</span>
+      <span class="case__badge">LIVE</span>
+    </header>
+    <h2 class="h-section case__title">AI content platform</h2>
+    <p class="case__lede">End-to-end content factory for a category-leading publisher — <em>research, draft, edit, schedule.</em></p>
 
-<!-- CASE 02 -->
-<section id="case-02" class="term-block term-case">
-  <div class="term-case__head">
-    <span class="term-case__num">[case 02]</span>
-    <span class="term-case__name">echo-returns.case</span>
-    <span class="term-case__domain">e-commerce &middot; customer ops</span>
-    <span class="term-case__badge live">[ LIVE ]</span>
-  </div>
-  <p class="term-case__lede">&gt; 24/7 voice agent handling order, returns and post-purchase queries. fluent in three languages, accountable to a queue.</p>
-
-  <div class="term-case__body">
-    <div class="term-case__col">
-      <span class="agent-term__label">// the problem</span>
-      <ul>
-        <li>BPO queues collapsing under high-volume, low-margin queries</li>
-        <li>40% of calls were repeatable status, returns, refund flows</li>
-        <li>IVR menus deflected customers, didn&rsquo;t resolve them</li>
-        <li>no data loop back to product, ops, fulfilment</li>
-      </ul>
+    <div class="case__body">
+      <div class="case__col problem">
+        <h4>The Problem</h4>
+        <ul>
+          <li>Editorial throughput capped at the speed of senior editors</li>
+          <li>Briefs, research, drafts scattered across six tools</li>
+          <li>Generic LLM output failed every house-style check</li>
+          <li>No audit trail tying published copy back to source</li>
+        </ul>
+      </div>
+      <div class="case__col built">
+        <h4>What We Built</h4>
+        <ul>
+          <li>Multi-agent pipeline: research → outline → draft → edit</li>
+          <li>House-style fine-tunes, evaluated against gold-standard pieces</li>
+          <li>Source-grounded retrieval with inline citation enforcement</li>
+          <li>Editor cockpit with diff-view, approvals, audit history</li>
+        </ul>
+      </div>
     </div>
-    <div class="term-case__col">
-      <span class="agent-term__label">// what we built</span>
-      <ul>
-        <li>low-latency voice agent, OMS-grounded, multilingual</li>
-        <li>live tool-use: order lookup, refund issue, return scheduling</li>
-        <li>escalation policy with full transcript hand-off to humans</li>
-        <li>insights pipeline feeding product, ops, fulfilment leads</li>
-      </ul>
+
+    <div class="case__impact">
+      <div><b>4.2×</b><span>editorial throughput</span></div>
+      <div><b>−61%</b><span>cost per piece</span></div>
+      <div><b>97%</b><span>house-style pass</span></div>
+      <div><b>100%</b><span>citation coverage</span></div>
     </div>
-  </div>
 
-  <div class="term-case__impact">
-    <div><b>72%</b><span>calls fully contained</span></div>
-    <div><b>3</b><span>languages in prod</span></div>
-    <div><b>+31%</b><span>first-call resolution</span></div>
-    <div><b>22s</b><span>median time-to-answer</span></div>
-  </div>
+    <div class="case__why">
+      <h4>Why it matters</h4>
+      <p>The newsroom didn&rsquo;t get a writing assistant. <em>It got a production system</em> that publishes with the desk, not around it.</p>
+    </div>
+  </article>
 
-  <div class="term-case__why">
-    <span class="agent-term__label">// why it matters</span>
-    <p>&gt; voice stopped being a deflection layer and became the operating layer for post-purchase. measured the way the ops team measures itself.</p>
-  </div>
+  <!-- CASE 02 -->
+  <article id="case-02" class="case">
+    <header class="case__head">
+      <span class="case__num">Case 02</span>
+      <span class="case__domain">E-commerce · Customer Ops</span>
+      <span class="case__badge">LIVE</span>
+    </header>
+    <h2 class="h-section case__title">Voice AI Agent</h2>
+    <p class="case__lede">24/7 voice agent handling order, returns and post-purchase queries — <em>fluent in three languages</em>, accountable to a queue.</p>
+
+    <div class="case__body">
+      <div class="case__col problem">
+        <h4>The Problem</h4>
+        <ul>
+          <li>BPO queues collapsing under high-volume, low-margin queries</li>
+          <li>40% of calls were repeatable status, returns, refund flows</li>
+          <li>IVR menus deflected customers, didn&rsquo;t resolve them</li>
+          <li>No data loop back to product, ops, fulfilment</li>
+        </ul>
+      </div>
+      <div class="case__col built">
+        <h4>What We Built</h4>
+        <ul>
+          <li>Low-latency voice agent, OMS-grounded, multilingual</li>
+          <li>Live tool-use: order lookup, refund issue, return scheduling</li>
+          <li>Escalation policy with full transcript hand-off to humans</li>
+          <li>Insights pipeline feeding product, ops, fulfilment leads</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case__impact">
+      <div><b>72%</b><span>calls fully contained</span></div>
+      <div><b>3</b><span>languages in prod</span></div>
+      <div><b>+31%</b><span>first-call resolution</span></div>
+      <div><b>22s</b><span>median time-to-answer</span></div>
+    </div>
+
+    <div class="case__why">
+      <h4>Why it matters</h4>
+      <p>Voice stopped being a deflection layer and became <em>the operating layer for post-purchase</em> — measured the way the ops team measures itself.</p>
+    </div>
+  </article>
+
+  <!-- CASE 03 -->
+  <article id="case-03" class="case">
+    <header class="case__head">
+      <span class="case__num">Case 03</span>
+      <span class="case__domain">Wealth · Regulated finance</span>
+      <span class="case__badge">LIVE</span>
+    </header>
+    <h2 class="h-section case__title">AI Wealth Advisor</h2>
+    <p class="case__lede">Regulated AI advisor inside a wealth platform — <em>personalised, explainable, defensible</em> to compliance.</p>
+
+    <div class="case__body">
+      <div class="case__col problem">
+        <h4>The Problem</h4>
+        <ul>
+          <li>Advisors served only the top decile of clients in any depth</li>
+          <li>Mass-affluent segment got generic, untimely guidance</li>
+          <li>Every personalised recommendation needed compliance review</li>
+          <li>No system tied advice given to outcomes observed</li>
+        </ul>
+      </div>
+      <div class="case__col built">
+        <h4>What We Built</h4>
+        <ul>
+          <li>Personalised advisor grounded in portfolio + house view</li>
+          <li>Recommendation engine with explicit risk + suitability gates</li>
+          <li>Explainability surface: every advice item traces to evidence</li>
+          <li>Compliance co-pilot: pre-cleared templates, audit trail</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case__impact">
+      <div><b>8.5×</b><span>clients per advisor</span></div>
+      <div><b>2.4×</b><span>activation on recs</span></div>
+      <div><b>100%</b><span>audit-traceable</span></div>
+      <div><b>0</b><span>compliance escalations</span></div>
+    </div>
+
+    <div class="case__why">
+      <h4>Why it matters</h4>
+      <p>Personalised advice stopped being a privilege of the top decile. <em>Without the compliance team losing a single night of sleep.</em></p>
+    </div>
+  </article>
 </section>
 
-<hr class="term-rule"/>
-
-<!-- CASE 03 -->
-<section id="case-03" class="term-block term-case">
-  <div class="term-case__head">
-    <span class="term-case__num">[case 03]</span>
-    <span class="term-case__name">ledger-copilot.case</span>
-    <span class="term-case__domain">wealth &middot; regulated finance</span>
-    <span class="term-case__badge live">[ LIVE ]</span>
-  </div>
-  <p class="term-case__lede">&gt; regulated ai advisor inside a wealth platform. personalised, explainable, defensible to compliance.</p>
-
-  <div class="term-case__body">
-    <div class="term-case__col">
-      <span class="agent-term__label">// the problem</span>
-      <ul>
-        <li>advisors served only the top decile of clients in any depth</li>
-        <li>mass-affluent segment got generic, untimely guidance</li>
-        <li>every personalised recommendation needed compliance review</li>
-        <li>no system tied advice given to outcomes observed</li>
-      </ul>
-    </div>
-    <div class="term-case__col">
-      <span class="agent-term__label">// what we built</span>
-      <ul>
-        <li>personalised advisor grounded in portfolio + house view</li>
-        <li>recommendation engine with explicit risk + suitability gates</li>
-        <li>explainability surface: every advice item traces to evidence</li>
-        <li>compliance co-pilot: pre-cleared templates, audit trail</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="term-case__impact">
-    <div><b>8.5&times;</b><span>clients per advisor</span></div>
-    <div><b>2.4&times;</b><span>activation on recs</span></div>
-    <div><b>100%</b><span>advice audit-traceable</span></div>
-    <div><b>0</b><span>compliance escalations</span></div>
-  </div>
-
-  <div class="term-case__why">
-    <span class="agent-term__label">// why it matters</span>
-    <p>&gt; personalised advice stopped being a privilege of the top decile. without the compliance team losing a single night of sleep.</p>
-  </div>
-</section>
-
-<hr class="term-rule"/>
-
-<section class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--your-case-next</span></div>
-  <div class="term-subprompt"><span class="term-status__arrow">►</span> these could be us writing about you in 12 weeks</div>
-  <div class="term-cta-row">
-    <a href="index.html#agent" class="term-cta-btn">[ open plan_builder ↵ ]</a>
-    <a href="mailto:hello@chittanshai.com" class="term-cta-btn term-cta-btn--ghost">[ email instead ]</a>
-  </div>
-</section>
-
-<hr class="term-rule"/>
-
-<section id="contact" class="term-block">
-  <div class="term-prompt"><span class="dollar">$</span> chittansh.ai <span class="flag">--contact</span></div>
-  <div class="term-contact">
-    <div class="term-contact__row">
-      <span class="term-contact__k">&gt; email</span>
-      <a href="mailto:hello@chittanshai.com" class="term-contact__v">hello@chittanshai.com</a>
-      <span class="term-contact__meta">reply within 6h, weekdays</span>
-    </div>
-    <div class="term-contact__row">
-      <span class="term-contact__k">&gt; office</span>
-      <span class="term-contact__v">gurgaon &middot; bengaluru</span>
-      <span class="term-contact__meta">by appointment</span>
+<section class="container final-cta" id="contact">
+  <div class="final-cta__card">
+    <h2 class="h-section final-cta__title">Your case study, <em>next.</em></h2>
+    <div class="final-cta__right">
+      <p>These could be us writing about you in 12 weeks. Describe your workflow in the Plan Builder and we&rsquo;ll match it to a demo and draft a plan.</p>
+      <div class="final-cta__buttons">
+        <a href="agent.html" class="btn btn-solid">Open Plan Builder</a>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-outline">Email us</a>
+      </div>
     </div>
   </div>
 </section>
 
-</main>
-
-<footer class="term-footer">
-  <div class="term-footer__inner">
-    <span>chittansh.ai/v2.0</span>
-    <span>&copy; 2026 chittansh ai solutions pvt ltd</span>
-    <span>ship the thing, not the deck</span>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2 class="footer-tag">AI you can put into operations.</h2>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-ghost btn-sm">hello@chittanshai.com</a>
+      </div>
+      <div class="footer-col"><h4>Work</h4>
+        <ul><li><a href="index.html#demos">Demos</a></li><li><a href="services.html">What we build</a></li><li><a href="case-studies.html">Case studies</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="#contact">Contact</a></li><li><a href="mailto:careers@chittanshai.com">Careers</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Office</h4>
+        <ul><li>Gurgaon · Bengaluru</li><li>Mon — Fri</li><li>By appointment</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Chittansh AI Solutions Pvt Ltd</span><span>v3.0 · ship the thing</span></div>
   </div>
 </footer>
 
 <script>
   (function(){
-    const num=document.getElementById('scroll-meter-num'),fill=document.getElementById('scroll-meter-fill');
-    if(!num||!fill)return; let raf=0;
-    const update=()=>{const max=(document.documentElement.scrollHeight-window.innerHeight)||1;const p=Math.min(100,Math.max(0,Math.round((window.scrollY/max)*100)));num.textContent=p;fill.style.transform='scaleX('+(p/100)+')';raf=0;};
-    update();window.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
-    window.addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(update);});
+    const h = document.getElementById('hamburger'), header = document.getElementById('site-header');
+    if (!h || !header) return;
+    h.addEventListener('click', () => header.classList.toggle('is-menu-open'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('is-menu-open')));
   })();
 </script>
 </body>

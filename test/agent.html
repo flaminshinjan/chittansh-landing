@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Agent Builder — Chittansh AI</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<meta name="description" content="Describe your workflow — by text, voice or video. Our agent matches it to a shipped demo and drafts a tailored 8-week plan in 60 seconds." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* AGENT PAGE — focused, full-bleed canvas */
+.agent-canvas {
+  min-height: calc(100vh - 80px);
+  background:
+    radial-gradient(ellipse at 80% 0%, var(--accent-soft), transparent 50%),
+    radial-gradient(ellipse at 0% 100%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%),
+    var(--bg);
+  padding: clamp(40px, 6vw, 80px) 0 clamp(56px, 7vw, 96px);
+}
+.agent-canvas__head {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.agent-canvas__title {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(36px, 5.4vw, 72px);
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  text-wrap: balance;
+  margin: 0;
+  max-width: 22ch;
+}
+.agent-canvas__title em {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  color: var(--accent-ink);
+  letter-spacing: -0.02em;
+}
+.agent-canvas__lede {
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: var(--ink-mid);
+  max-width: 56ch;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Stage = focused agent panel (wider, taller, more breathing) */
+.agent-stage {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.agent-stage .plan-card { background: var(--bg-white); }
+.agent-stage .plan-card__split {
+  grid-template-columns: 1fr;
+  min-height: 0;
+}
+.agent-stage .plan-card__input {
+  border-right: 0;
+  padding: 28px 32px;
+}
+.agent-stage .plan-card__result {
+  background: var(--bg-elev);
+  padding: 28px 32px;
+  border-top: 1px solid var(--hairline);
+  min-height: 320px;
+}
+.agent-stage .plan-textarea-wrap { min-height: 160px; }
+.agent-stage .plan-textarea { min-height: 140px; font-size: 16px; }
+.agent-stage .plan-submit { padding: 14px 26px; font-size: 15px; }
+
+.agent-stage .plan-mode { gap: 16px; }
+.agent-stage .plan-chips { gap: 8px; }
+.agent-stage .plan-chip { font-size: 13px; padding: 8px 14px; }
+
+/* Result reveal */
+.agent-stage .plan-result { gap: 18px; }
+.agent-stage .plan-result__summary { font-size: 20px; }
+
+/* Bottom bar — sticky help */
+.agent-foot {
+  max-width: 880px;
+  margin: 32px auto 0;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  padding: 16px 28px;
+  background: var(--bg-white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  color: var(--ink-mid);
+}
+.agent-foot a { color: var(--accent-ink); border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
+.agent-foot__how { display: inline-flex; align-items: center; gap: 12px; }
+.agent-foot__how::before { content: "·"; color: var(--accent); font-weight: 800; }
+
+@media (max-width: 600px) {
+  .agent-stage .plan-card__input,
+  .agent-stage .plan-card__result { padding: 20px 18px; }
+  .agent-stage .plan-textarea { font-size: 15px; }
+  .agent-foot { flex-direction: column; align-items: stretch; text-align: center; padding: 14px 18px; border-radius: var(--radius-lg); }
+  .agent-foot__how::before { display: none; }
+}
+</style>
+</head>
+<body data-screen-label="Agent Builder">
+
+<header class="site-header" id="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="brand">
+      <img class="brand__mark" src="logo.png" alt="Chittansh AI" />
+      <span>Chittansh AI</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      <a href="services.html">Services</a>
+      <a href="demos.html">Demos</a>
+      <a href="research.html">Research</a>
+      <a href="why-us.html">Why us</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="agent.html" class="btn btn-solid">Try our agent builder</a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main class="agent-canvas">
+
+  <!-- HEAD -->
+  <div class="container agent-canvas__head">
+    <span class="pill-kicker">AGENT BUILDER · LIVE</span>
+    <h1 class="agent-canvas__title">Describe your workflow. <em>Get a tailored plan.</em></h1>
+    <p class="agent-canvas__lede">By text, voice or short video — our agent matches it to a shipped demo and drafts an 8-week plan in 60 seconds. Then decide if a 30-min call is worth your time.</p>
+  </div>
+
+  <!-- STAGE -->
+  <div class="container agent-stage">
+    <section class="plan-card" id="agent" aria-label="Plan Builder">
+
+      <header class="plan-card__bar">
+        <div class="plan-card__bar-l">
+          <img class="plan-card__avatar" src="logo.png" alt="" />
+          <div class="plan-card__title-wrap">
+            <h2 class="plan-card__title">Plan Builder</h2>
+            <span class="plan-card__sub">Match your workflow to a shipped demo · ~25s</span>
+          </div>
+        </div>
+        <div></div>
+        <div class="plan-card__stats">
+          <div class="plan-card__stat"><b>6</b><em>demos</em></div>
+          <div class="plan-card__stat"><b>27</b><em>shipped</em></div>
+        </div>
+      </header>
+
+      <div class="plan-card__split">
+
+        <!-- INPUT -->
+        <div class="plan-card__input">
+          <div class="plan-step">
+            <span class="dot"></span>
+            <span>01 · Describe your workflow</span>
+          </div>
+
+          <div class="plan-tabs" role="tablist" aria-label="Input mode">
+            <button type="button" class="plan-tab is-active" data-mode="text" role="tab" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+              Text
+            </button>
+            <button type="button" class="plan-tab" data-mode="voice" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+              Voice
+            </button>
+            <button type="button" class="plan-tab" data-mode="video" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><polygon points="16 10 22 6 22 18 16 14"/></svg>
+              Video
+            </button>
+          </div>
+
+          <!-- TEXT -->
+          <div class="plan-mode is-active" data-pane="text">
+            <div class="plan-chips" role="group" aria-label="Quick starts">
+              <button type="button" class="plan-chip" data-prefill="We get 4,000 inbound support calls a month for returns and exchanges on our DTC store. Want to contain 30%+ end-to-end with voice.">Voice for returns</button>
+              <button type="button" class="plan-chip" data-prefill="Our advisors spend 2 hours per client writing suitability rationales. We want a copilot that drafts the memo with citations, compliance-ready.">Advisor copilot</button>
+              <button type="button" class="plan-chip" data-prefill="Internal teams need to search across our 14k regulator filings, contracts and internal wiki. Today it's grep + tribal knowledge. Want a RAG copilot they actually trust.">Internal RAG</button>
+              <button type="button" class="plan-chip" data-prefill="Our claims adjusters handle motor + health FNOLs. We want an agent that triages, flags fraud signals, and gives them one screen to act on.">Claims triage</button>
+              <button type="button" class="plan-chip" data-prefill="Editorial desk wants to turn wire stories into in-house briefs at deadline pace. Voice-locked, every fact cited back to source.">Editorial drafting</button>
+            </div>
+            <form class="plan-textarea-wrap" id="agent-form">
+              <label class="visually-hidden" for="agent-input">Describe your workflow</label>
+              <textarea id="agent-input" class="plan-textarea" rows="6"
+                placeholder="Industry · team · current pain. One paragraph is enough — the more concrete, the sharper the plan."
+                maxlength="900"></textarea>
+            </form>
+            <div class="plan-foot">
+              <span class="plan-hint">⏎ to run · never stored</span>
+              <button type="button" class="plan-submit" id="agent-submit">
+                Draft my plan <span class="arr">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- VOICE -->
+          <div class="plan-mode" data-pane="voice">
+            <div class="voice-pad">
+              <button type="button" class="voice-mic" id="voice-mic" aria-label="Tap to record">
+                <span class="voice-mic__ring"></span>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+              </button>
+              <div class="voice-pad__meta">
+                <span class="voice-status" id="voice-status">Tap to record · ~30s</span>
+                <span class="voice-time" id="voice-time">0:00</span>
+              </div>
+              <div class="voice-bars" id="voice-bars" aria-hidden="true"></div>
+            </div>
+            <div class="voice-transcript">
+              <span class="voice-transcript-label">Transcript</span>
+              <div id="voice-transcript-out" class="voice-transcript-out" contenteditable="true" data-placeholder="Your transcript will appear here — editable before you submit."></div>
+            </div>
+            <div class="plan-foot">
+              <span class="plan-hint" id="voice-hint">Uses your browser&rsquo;s speech recognition</span>
+              <button type="button" class="plan-submit" id="voice-submit">
+                Draft my plan <span class="arr">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- VIDEO -->
+          <div class="plan-mode" data-pane="video">
+            <div class="video-pad">
+              <video id="video-preview" class="video-preview" autoplay muted playsinline></video>
+              <div class="video-overlay" id="video-overlay">
+                <button class="video-cta" type="button" id="video-cta">Enable camera</button>
+                <span class="video-hint">We&rsquo;ll attach a 30&ndash;60s pitch to your inquiry</span>
+              </div>
+              <div class="video-rec" id="video-rec-indicator"><span></span>REC <em id="video-time">0:00</em></div>
+            </div>
+            <div class="video-controls">
+              <button type="button" class="video-btn" id="video-record">● Record</button>
+              <button type="button" class="video-btn video-btn--ghost" id="video-stop" disabled>■ Stop</button>
+              <button type="button" class="video-btn video-btn--ghost" id="video-reset" disabled>↺ Reset</button>
+              <span class="video-status" id="video-status">Camera off</span>
+            </div>
+            <div class="plan-textarea-wrap video-note">
+              <textarea id="video-note" class="plan-textarea" rows="3"
+                placeholder="Optional — one line of context to send with the video."
+                maxlength="400"></textarea>
+            </div>
+            <div class="plan-foot">
+              <span class="plan-hint">Video stays local until you submit</span>
+              <button type="button" class="plan-submit" id="video-submit" disabled>
+                Draft my plan <span class="arr">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULT -->
+        <div class="plan-card__result" id="agent-result-col">
+          <div class="plan-step">
+            <span class="dot dot--alt"></span>
+            <span id="agent-state-label">02 · Sample plan · drafted live for an example workflow</span>
+          </div>
+
+          <div class="plan-result" id="agent-result">
+            <div class="plan-result__row">
+              <span class="plan-result__label">Summary</span>
+              <p class="plan-result__summary" id="r-summary">Voice agent containing returns &amp; exchanges end-to-end on inbound calls, 30%+ deflection target.</p>
+            </div>
+            <div class="plan-result__row">
+              <span class="plan-result__label">How we&rsquo;d approach it</span>
+              <p class="plan-result__approach" id="r-approach">Streaming voice on your existing telephony. Tool-use over your OMS so refunds and exchanges close on the call, not in a follow-up queue. Sub-1.4s latency budget end-to-end.</p>
+            </div>
+
+            <div class="plan-demo-card">
+              <div class="plan-demo-card__head">
+                <span class="plan-result__label">Closest demo · start here</span>
+                <span class="plan-demo-card__badge">LIVE</span>
+              </div>
+              <h4 class="plan-demo-card__name" id="r-demo-name">Echo Returns</h4>
+              <p class="plan-demo-card__why" id="r-demo-why">Same shape as your stack &mdash; sub-1.4s latency, OMS-backed actions, clean escalation when policy gets ambiguous.</p>
+            </div>
+
+            <div class="plan-phases">
+              <div class="plan-phase">
+                <span class="plan-result__label">Wk 1–3 · Thesis</span>
+                <ul id="r-sprint">
+                  <li>Map top 8 call reasons by volume + margin</li>
+                  <li>Latency + tool-use POC on staging line</li>
+                  <li>Compliance + recording review path</li>
+                </ul>
+              </div>
+              <div class="plan-phase">
+                <span class="plan-result__label">Wk 4–12 · Build</span>
+                <ul id="r-build">
+                  <li>Live on one number, 5% of traffic</li>
+                  <li>OMS tool-use locked + tested in prod</li>
+                  <li>Human handoff + transcript review baked in</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="plan-question">
+              <span class="plan-result__label">What we&rsquo;d ask on the call</span>
+              <p id="r-question">Which call reasons would make you uncomfortable letting an agent close end-to-end &mdash; and why?</p>
+            </div>
+
+            <div class="plan-cta">
+              <a href="mailto:hello@chittanshai.com?subject=Demo%20plan%20followup" class="plan-cta__btn">
+                Book a 30-min call <span class="arr">→</span>
+              </a>
+              <button type="button" class="plan-restart" id="agent-restart">← Reset to sample</button>
+            </div>
+          </div>
+
+          <div class="plan-overlay" id="agent-loading">
+            <div class="plan-loading-card">
+              <div class="plan-loading-title">Drafting your plan</div>
+              <div class="plan-steps">
+                <div class="plan-step-row" data-step="1"><span class="plan-step-row__i">01</span><span>Reading input</span><span class="plan-step-row__mark"></span></div>
+                <div class="plan-step-row" data-step="2"><span class="plan-step-row__i">02</span><span>Searching demo catalogue</span><span class="plan-step-row__mark"></span></div>
+                <div class="plan-step-row" data-step="3"><span class="plan-step-row__i">03</span><span>Composing plan</span><span class="plan-step-row__mark"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plan-overlay" id="agent-error">
+            <div class="plan-loading-card plan-error">
+              <p>Something went sideways. The frontier is unstable today &mdash; email <a href="mailto:hello@chittanshai.com">hello@chittanshai.com</a> and we&rsquo;ll draft your plan by hand.</p>
+              <button type="button" class="plan-restart" id="agent-restart-err">← Try again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOT -->
+  <div class="container agent-foot">
+    <span>Output is a draft &mdash; we refine it on the call.</span>
+    <span class="agent-foot__how">Prefer email? <a href="mailto:hello@chittanshai.com">hello@chittanshai.com</a></span>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2 class="footer-tag">AI you can put into operations.</h2>
+        <a href="mailto:hello@chittanshai.com" class="btn btn-ghost btn-sm">hello@chittanshai.com</a>
+      </div>
+      <div class="footer-col"><h4>Work</h4>
+        <ul><li><a href="demos.html">Demos</a></li><li><a href="services.html">Services</a></li><li><a href="case-studies.html">Case studies</a></li><li><a href="research.html">Research</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Company</h4>
+        <ul><li><a href="why-us.html">Why us</a></li><li><a href="mailto:hello@chittanshai.com">Contact</a></li><li><a href="mailto:careers@chittanshai.com">Careers</a></li></ul>
+      </div>
+      <div class="footer-col"><h4>Office</h4>
+        <ul><li>Gurgaon · Bengaluru</li><li>Mon — Fri</li><li>By appointment</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Chittansh AI Solutions Pvt Ltd</span><span>v3.0 · ship the thing</span></div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  (function(){
+    const h = document.getElementById('hamburger'), header = document.getElementById('site-header');
+    if (!h || !header) return;
+    h.addEventListener('click', () => header.classList.toggle('is-menu-open'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('is-menu-open')));
+  })();
+
+  // ============ PLAN BUILDER AGENT ============
+  (function(){
+    const agent      = document.getElementById('agent');
+    if (!agent) return;
+    const form       = document.getElementById('agent-form');
+    const input      = document.getElementById('agent-input');
+    const textSubmit = document.getElementById('agent-submit');
+    const chips      = agent.querySelectorAll('.plan-chip');
+    const loading    = document.getElementById('agent-loading');
+    const errorPane  = document.getElementById('agent-error');
+    const result     = document.getElementById('agent-result');
+    const stateLabel = document.getElementById('agent-state-label');
+    const restarts   = agent.querySelectorAll('#agent-restart, #agent-restart-err');
+    const steps      = agent.querySelectorAll('.plan-step-row');
+
+    const sampleSnapshot = {
+      summary:  document.getElementById('r-summary').textContent,
+      approach: document.getElementById('r-approach').textContent,
+      demoName: document.getElementById('r-demo-name').textContent,
+      demoWhy:  document.getElementById('r-demo-why').textContent,
+      sprint:   [...document.getElementById('r-sprint').querySelectorAll('li')].map(l => l.textContent),
+      build:    [...document.getElementById('r-build').querySelectorAll('li')].map(l => l.textContent),
+      question: document.getElementById('r-question').textContent,
+    };
+
+    const showLoading = (on) => loading.classList.toggle('is-on', on);
+    const showError   = (on) => errorPane.classList.toggle('is-on', on);
+
+    chips.forEach(c => c.addEventListener('click', () => { input.value = c.dataset.prefill; input.focus(); }));
+    restarts.forEach(b => b.addEventListener('click', () => {
+      showLoading(false); showError(false);
+      input.value = '';
+      fillResult(sampleSnapshot, true);
+      input.focus();
+    }));
+
+    let stepTimer = 0;
+    const startSteps = () => {
+      const arr = [...steps];
+      arr.forEach(s => s.classList.remove('is-active','is-done'));
+      let i = 0;
+      const tick = () => {
+        arr.forEach((s, idx) => {
+          s.classList.toggle('is-active', idx === i);
+          s.classList.toggle('is-done',   idx <  i);
+        });
+        i += 1;
+        if (i > arr.length) {
+          arr.forEach(s => { s.classList.remove('is-active'); s.classList.add('is-done'); });
+          arr[arr.length - 1].classList.remove('is-done');
+          arr[arr.length - 1].classList.add('is-active');
+          clearInterval(stepTimer); stepTimer = 0;
+        }
+      };
+      tick();
+      stepTimer = setInterval(tick, 1200);
+    };
+    const stopSteps = () => { if (stepTimer) clearInterval(stepTimer); stepTimer = 0; };
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); runAgent((input.value||'').trim(), input); }
+    });
+    textSubmit.addEventListener('click', () => runAgent((input.value||'').trim(), input));
+
+    function fillResult(data, isSample) {
+      document.getElementById('r-summary').textContent   = data.summary  || '';
+      document.getElementById('r-approach').textContent  = data.approach || '';
+      document.getElementById('r-demo-name').textContent = data.demoName || data.demo?.name || '';
+      document.getElementById('r-demo-why').textContent  = data.demoWhy  || data.demo?.why  || '';
+      document.getElementById('r-question').textContent  = data.question || '';
+      const fillList = (id, arr) => {
+        const ul = document.getElementById(id); ul.innerHTML = '';
+        (arr || []).forEach(item => { const li = document.createElement('li'); li.textContent = item; ul.appendChild(li); });
+      };
+      fillList('r-sprint', data.sprint);
+      fillList('r-build',  data.build);
+      stateLabel.textContent = isSample
+        ? '02 · Sample plan · drafted live for an example workflow'
+        : '02 · Your plan · drafted in the last 30 seconds';
+    }
+
+    async function runAgent(userText, sourceField) {
+      if (!userText || userText.length < 12) {
+        if (sourceField && sourceField.classList) {
+          sourceField.classList.add('shake');
+          setTimeout(() => sourceField.classList.remove('shake'), 600);
+          if (sourceField.focus) sourceField.focus();
+        }
+        return;
+      }
+      showError(false); showLoading(true); startSteps();
+      const sys = `You are the Chittansh AI Plan Builder. Chittansh AI is an AI build studio that ships production AI systems (agents, voice, RAG, internal copilots) for ops & product teams.
+
+Voice: confident, direct, punchy, opinionated. No hedging. No "leverage", "synergy", "innovative". Plain English.
+
+Our demo library — match the user's workflow to the SINGLE best fit:
+- "Echo Returns" — inbound voice agent, sub-1.4s, tool-using. Use for: voice, contact center, returns/exchanges/support calls.
+- "Ledger Copilot" — advisor cockpit, drafts suitability memos with citations. Use for: wealth, advisory, regulated drafting.
+- "Triage.OS" — vision+text claims triage with fraud signals. Use for: insurance, FNOL, adjuster workflows.
+- "Briefroom" — editorial agent, wire-to-brief, house-style scored. Use for: media, newsroom, editorial workflows.
+- "Routeline" — ops control-room agent, writes customer + carrier + ticket comms. Use for: logistics, ops exceptions.
+- "KYC, conversational" — chat-style onboarding flow on top of existing KYC. Use for: banking, onboarding, form-replacement.
+
+Respond with a JSON object ONLY (no prose, no fences):
+{
+  "summary": "Single sentence rephrase. Sharp. <= 24 words.",
+  "approach": "How we'd approach it. 1-2 sentences. Name a real architecture decision. <= 50 words.",
+  "demo": { "name": "EXACT name from list above", "why": "Why this is the closest match. <= 28 words." },
+  "sprint": ["3-week sprint output #1 — 6-10 words", "output #2", "output #3"],
+  "build": ["8-week build output #1 — 6-10 words", "output #2", "output #3"],
+  "question": "The single sharpest question we'd ask on the intro call. <= 24 words."
+}
+Output JSON only.`;
+
+      let parsed = null;
+      try {
+        const out = await window.claude.complete({
+          messages: [{ role: 'user', content: sys + '\n\nUSER WORKFLOW:\n"""' + userText + '"""\n\nReturn JSON only.' }]
+        });
+        const cleaned = (out || '').replace(/^```(?:json)?/i, '').replace(/```\s*$/,'').trim();
+        const m = cleaned.match(/\{[\s\S]*\}/);
+        parsed = JSON.parse(m ? m[0] : cleaned);
+      } catch (err) { console.error('agent', err); stopSteps(); showLoading(false); showError(true); return; }
+      if (!parsed || !parsed.summary || !parsed.demo) { stopSteps(); showLoading(false); showError(true); return; }
+      await new Promise(r => setTimeout(r, 700));
+      stopSteps(); showLoading(false);
+      fillResult(parsed, false);
+    }
+
+    // Mode tabs
+    const tabs = agent.querySelectorAll('.plan-tab');
+    const modes = agent.querySelectorAll('.plan-mode');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => { x.classList.remove('is-active'); x.setAttribute('aria-selected','false'); });
+      t.classList.add('is-active'); t.setAttribute('aria-selected','true');
+      modes.forEach(m => m.classList.toggle('is-active', m.dataset.pane === t.dataset.mode));
+    }));
+
+    // VOICE
+    (function(){
+      const mic       = document.getElementById('voice-mic');
+      const statusEl  = document.getElementById('voice-status');
+      const timeEl    = document.getElementById('voice-time');
+      const barsWrap  = document.getElementById('voice-bars');
+      const trOut     = document.getElementById('voice-transcript-out');
+      const submitBtn = document.getElementById('voice-submit');
+      const hintEl    = document.getElementById('voice-hint');
+      if (!mic) return;
+      for (let i = 0; i < 16; i++) { const s = document.createElement('span'); barsWrap.appendChild(s); }
+      const bars = barsWrap.querySelectorAll('span');
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { hintEl.textContent = 'Speech recognition not supported here — type instead'; mic.disabled = true; mic.style.opacity = '.4'; return; }
+      let recog = null, recording = false, finalText = '', interim = '';
+      let startedAt = 0, timer = 0, audioCtx = null, analyser = null, rafId = 0, mediaStream = null;
+      const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2,'0')}`;
+      const renderText = () => { trOut.textContent = (finalText + (interim ? ' ' + interim : '')).trim(); };
+      const stopVis = () => {
+        cancelAnimationFrame(rafId); rafId = 0;
+        bars.forEach(b => b.style.transform = 'scaleY(0.15)');
+        if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+        if (audioCtx) { audioCtx.close().catch(()=>{}); audioCtx = null; analyser = null; }
+      };
+      const startVis = async () => {
+        try {
+          mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const src = audioCtx.createMediaStreamSource(mediaStream);
+          analyser = audioCtx.createAnalyser(); analyser.fftSize = 64;
+          src.connect(analyser);
+          const data = new Uint8Array(analyser.frequencyBinCount);
+          const loop = () => {
+            analyser.getByteFrequencyData(data);
+            bars.forEach((b, i) => { const v = data[i] / 255; b.style.transform = `scaleY(${Math.max(0.15, v)})`; });
+            rafId = requestAnimationFrame(loop);
+          };
+          loop();
+        } catch (e) {}
+      };
+      const start = async () => {
+        finalText = ''; interim = ''; renderText();
+        recog = new SR(); recog.continuous = true; recog.interimResults = true; recog.lang = 'en-US';
+        recog.onresult = (ev) => {
+          interim = '';
+          for (let i = ev.resultIndex; i < ev.results.length; i++) {
+            const r = ev.results[i];
+            if (r.isFinal) finalText += (finalText ? ' ' : '') + r[0].transcript.trim();
+            else interim += r[0].transcript;
+          }
+          renderText();
+        };
+        recog.onerror = () => { statusEl.textContent = 'Error — try again'; stop(); };
+        recog.onend = () => { if (recording) { try { recog.start(); } catch(_){} } };
+        try { recog.start(); } catch(_){}
+        recording = true;
+        mic.classList.add('is-on');
+        statusEl.textContent = 'Listening — tap to stop';
+        startedAt = performance.now();
+        timer = setInterval(() => { timeEl.textContent = fmt((performance.now() - startedAt) / 1000); }, 250);
+        startVis();
+      };
+      const stop = () => {
+        recording = false;
+        if (recog) { try { recog.stop(); } catch(_){} recog = null; }
+        clearInterval(timer); timer = 0;
+        mic.classList.remove('is-on');
+        statusEl.textContent = finalText ? 'Stopped — review or run' : 'Tap to record · ~30s';
+        stopVis();
+      };
+      mic.addEventListener('click', () => recording ? stop() : start());
+      submitBtn.addEventListener('click', () => runAgent((trOut.textContent||'').trim(), trOut));
+    })();
+
+    // VIDEO
+    (function(){
+      const preview = document.getElementById('video-preview');
+      const overlay = document.getElementById('video-overlay');
+      const ctaBtn  = document.getElementById('video-cta');
+      const recBtn  = document.getElementById('video-record');
+      const stopBtn = document.getElementById('video-stop');
+      const resetBtn= document.getElementById('video-reset');
+      const statusEl= document.getElementById('video-status');
+      const recInd  = document.getElementById('video-rec-indicator');
+      const timeEl  = document.getElementById('video-time');
+      const submitBtn = document.getElementById('video-submit');
+      const noteEl  = document.getElementById('video-note');
+      if (!preview) return;
+      let stream = null, mr = null, chunks = [], blob = null, startedAt = 0, timer = 0;
+      const fmt = (sec) => `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2,'0')}`;
+      const setStatus = (t) => statusEl.textContent = t;
+      const setRecBadge = (on) => recInd.classList.toggle('is-on', on);
+      async function enable() {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280 }, audio: true });
+          preview.srcObject = stream;
+          overlay.classList.add('is-hidden');
+          setStatus('Camera on — tap record');
+          recBtn.disabled = false;
+        } catch (e) { setStatus('Permission denied'); }
+      }
+      function start() {
+        if (!stream) return;
+        chunks = [];
+        try { mr = new MediaRecorder(stream, { mimeType: 'video/webm' }); }
+        catch (e) { mr = new MediaRecorder(stream); }
+        mr.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) chunks.push(ev.data); };
+        mr.onstop = () => {
+          blob = new Blob(chunks, { type: 'video/webm' });
+          setStatus(`Recorded — ${fmt((performance.now() - startedAt) / 1000)} attached`);
+          stopBtn.disabled = true;
+          recBtn.disabled = false; recBtn.textContent = '● Re-record';
+          resetBtn.disabled = false;
+          submitBtn.disabled = false;
+          setRecBadge(false);
+          preview.srcObject = null;
+          preview.src = URL.createObjectURL(blob);
+          preview.controls = true; preview.muted = false;
+          preview.play().catch(()=>{});
+        };
+        mr.start(200);
+        startedAt = performance.now();
+        timer = setInterval(() => { timeEl.textContent = fmt((performance.now() - startedAt) / 1000); }, 250);
+        setStatus('Recording'); setRecBadge(true);
+        recBtn.disabled = true; stopBtn.disabled = false;
+      }
+      function stop() { if (mr && mr.state !== 'inactive') mr.stop(); clearInterval(timer); timer = 0; }
+      function reset() {
+        if (blob) { try { URL.revokeObjectURL(preview.src); } catch(_){} }
+        blob = null; chunks = [];
+        preview.controls = false; preview.srcObject = stream;
+        preview.muted = true; preview.play().catch(()=>{});
+        timeEl.textContent = '0:00';
+        recBtn.textContent = '● Record';
+        recBtn.disabled = !stream; stopBtn.disabled = true; resetBtn.disabled = true; submitBtn.disabled = true;
+        setStatus(stream ? 'Camera on — tap record' : 'Camera off');
+      }
+      ctaBtn.addEventListener('click', enable);
+      recBtn.addEventListener('click', () => { if (blob) reset(); start(); });
+      stopBtn.addEventListener('click', stop);
+      resetBtn.addEventListener('click', reset);
+      submitBtn.addEventListener('click', () => {
+        const note = (noteEl.value || '').trim();
+        const text = note
+          ? `[Video pitch attached · ${fmt((performance.now() - startedAt) / 1000)} long.] ${note}`
+          : `[Video pitch attached. Please review on the call and propose a plan based on what you see and hear.]`;
+        runAgent(text, noteEl);
+      });
+    })();
+  })();
+</script>
+</body>
+</html>

@@ -7,29 +7,36 @@ const BADGE_LABEL: Record<string, string> = {
   nda: 'NDA',
 };
 
+function titleCaseFromName(name: string): string {
+  const stem = name.replace(/\.case$/i, '');
+  return stem
+    .split(/[-_\s]+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 export default function CaseStudy({ demo, index }: { demo: Demo; index?: number }) {
   const cs = demo.caseStudy;
   if (!cs?.enabled) return null;
 
   const badgeClass = demo.badge ?? 'live';
   const badgeLabel = BADGE_LABEL[badgeClass] ?? 'LIVE';
-  const numLabel = index !== undefined ? `[case ${String(index + 1).padStart(2, '0')}]` : `[case ${demo.num}]`;
+  const caseNumber = index !== undefined ? `Case ${String(index + 1).padStart(2, '0')}` : `Case ${demo.num}`;
 
   return (
-    <section id={`case-${demo.slug.current}`} className="term-block term-case">
-      <div className="term-case__head">
-        <span className="term-case__num">{numLabel}</span>
-        <span className="term-case__name">{demo.name}</span>
-        <span className="term-case__domain">{cs.caseDomain ?? demo.domain}</span>
-        <span className={`term-case__badge ${badgeClass}`}>[ {badgeLabel} ]</span>
-      </div>
+    <article id={`case-${demo.slug.current}`} className="case">
+      <header className="case__head">
+        <span className="case__num">{caseNumber}</span>
+        <span className="case__domain">{cs.caseDomain ?? demo.domain}</span>
+        <span className="case__badge">{badgeLabel}</span>
+      </header>
+      <h2 className="h-section case__title">{titleCaseFromName(demo.name)}</h2>
+      {cs.lede ? <p className="case__lede">{cs.lede}</p> : null}
 
-      {cs.lede ? <p className="term-case__lede">&gt; {cs.lede}</p> : null}
-
-      <div className="term-case__body">
+      <div className="case__body">
         {cs.problem?.length ? (
-          <div className="term-case__col">
-            <span className="agent-term__label">// the problem</span>
+          <div className="case__col problem">
+            <h4>The Problem</h4>
             <ul>
               {cs.problem.map((p, i) => (
                 <li key={i}>{p}</li>
@@ -39,8 +46,8 @@ export default function CaseStudy({ demo, index }: { demo: Demo; index?: number 
         ) : null}
 
         {cs.whatWeBuilt?.length ? (
-          <div className="term-case__col">
-            <span className="agent-term__label">// what we built</span>
+          <div className="case__col built">
+            <h4>What We Built</h4>
             <ul>
               {cs.whatWeBuilt.map((p, i) => (
                 <li key={i}>{p}</li>
@@ -51,7 +58,7 @@ export default function CaseStudy({ demo, index }: { demo: Demo; index?: number 
       </div>
 
       {cs.impact?.length ? (
-        <div className="term-case__impact">
+        <div className="case__impact">
           {cs.impact.map((m, i) => (
             <div key={i}>
               <b>{m.value}</b>
@@ -62,11 +69,11 @@ export default function CaseStudy({ demo, index }: { demo: Demo; index?: number 
       ) : null}
 
       {cs.whyItMatters ? (
-        <div className="term-case__why">
-          <span className="agent-term__label">// why it matters</span>
-          <p>&gt; {cs.whyItMatters}</p>
+        <div className="case__why">
+          <h4>Why it matters</h4>
+          <p>{cs.whyItMatters}</p>
         </div>
       ) : null}
-    </section>
+    </article>
   );
 }
